@@ -20,12 +20,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
+import fullScreenLoadingReducer from './full-screen-loading/fullscreenloading.slice';
 import onboardingReducer from './onboarding/onboarding.slice';
 import themeReducer from './theme/theme.slice';
 
 const rootReducer = combineReducers({
   onboarding: onboardingReducer,
   theme: themeReducer,
+  loading: fullScreenLoadingReducer,
   // Add other slice reducers here
 });
 
@@ -34,6 +36,8 @@ const persistConfig = {
   storage: AsyncStorage, // Storage mechanism (AsyncStorage)
   // Whitelist which reducers to persist
   whitelist: ['onboarding', 'theme'],
+  // Blacklist which reducers not to persist
+  blacklist: ['loading'],
 };
 
 // Create the persisted reducer

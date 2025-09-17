@@ -32,6 +32,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { FullScreenLoader } from '../molecules/full-screen-loader';
 import { type IProviderProps } from './provider.types';
 
 export const Providers: React.FC<IProviderProps> = ({ children }) => {
@@ -41,6 +42,7 @@ export const Providers: React.FC<IProviderProps> = ({ children }) => {
         <BottomSheetModalProvider>
           <Provider store={store}>
             <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
+              <FullScreenLoader />
               {children}
             </PersistGate>
           </Provider>
