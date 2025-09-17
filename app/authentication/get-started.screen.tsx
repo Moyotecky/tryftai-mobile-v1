@@ -1,3 +1,18 @@
+/**
+ * app/authentication/get-started.screen.tsx
+ *
+ * First screen for new users to introduce TryftAI features.
+ * Includes:
+ *  - Illustration at the top
+ *  - Feature list with checkmarks
+ *  - "Get Started" button to navigate to Sign Up
+ *  - Link to Sign In for existing users
+ *
+ * Author: Victor U.
+ * Created: Sept 2025
+ *
+ */
+
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@tryftai/components/atoms/button';
 import { Text } from '@tryftai/components/atoms/text';
