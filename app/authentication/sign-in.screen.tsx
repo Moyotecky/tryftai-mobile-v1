@@ -28,28 +28,24 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Screen = () => {
   return (
-    <KeyboardAwareScrollView
-      className="bg-background_light-500 flex-1"
-      contentContainerClassName="flex-grow">
-      <SafeAreaView>
-        <View className="h-2/5">
-          <View className="ml-4">
-            <TouchableOpacity
-              activeOpacity={0.9}
-              onPress={() => {
-                if (router.canGoBack()) {
-                  router.back();
-                }
-              }}>
-              <Ionicons name="chevron-back" size={24} color="black" />
-            </TouchableOpacity>
-          </View>
-          <View className="flex-1 items-center justify-center">
-            <Image
-              source={require('@tryftai/assets/images/auth/login/illustration.png')}
-              className="h-40 w-40"
-            />
-          </View>
+    <SafeAreaView className="bg-background_light-500 flex-1">
+      <View className="ml-4 items-start pr-2">
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => {
+            if (router.canGoBack()) {
+              router.back();
+            }
+          }}>
+          <Ionicons name="chevron-back" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
+      <KeyboardAwareScrollView className="flex-1" contentContainerClassName="flex-grow">
+        <View className="h-2/5 items-center justify-center">
+          <Image
+            source={require('@tryftai/assets/images/auth/login/illustration.png')}
+            className="h-40 w-40"
+          />
         </View>
         <View className="h-3/5 justify-between px-6 pt-5">
           <View className="gap-2">
@@ -60,16 +56,16 @@ const Screen = () => {
               Simply enter your phone number to login or create an account.
             </Text>
           </View>
-          <View className="mt-5 flex-1 gap-4">
+          <View className="mt-5 flex-1 gap-3">
             <Input label="Email Address" />
             <Input label="Password" />
-          </View>
-          <View className="justify-start-start mb-7">
-            <TouchableOpacity activeOpacity={0.9}>
-              <Text className="text-primary-500 items-start" weight="semi_bold">
-                Forgot Password?
-              </Text>
-            </TouchableOpacity>
+            <View className="justify-start">
+              <TouchableOpacity activeOpacity={0.9}>
+                <Text className="text-primary-500 items-start" weight="semi_bold">
+                  Forgot Password?
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
           <View className="gap-4">
@@ -93,8 +89,8 @@ const Screen = () => {
             </View>
           </View>
         </View>
-      </SafeAreaView>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
+    </SafeAreaView>
   );
 };
 
