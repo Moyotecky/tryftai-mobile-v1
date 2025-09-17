@@ -1,3 +1,22 @@
+/**
+ * app/authentication/sign-in.screen.tsx
+ *
+ * Allows users to sign in with email and password.
+ * Uses KeyboardAwareScrollView to keep inputs visible when keyboard opens.
+ * Includes:
+ *  - Illustration at the top
+ *  - Email and Password inputs
+ *  - Sign In button
+ *  - Link to chat with support (not implemented yet)
+ *
+ * Uses reusable components: Input, Button, Text.
+ * Styled with NativeWind.
+ *
+ * Author: Victor U.
+ * Created: Sept 2025
+ *
+ */
+
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@tryftai/components/atoms/button';
 import { Input } from '@tryftai/components/atoms/input';
