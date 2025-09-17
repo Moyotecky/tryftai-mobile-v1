@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@tryftai/components/atoms/button';
 import { Text } from '@tryftai/components/atoms/text';
+import { router } from 'expo-router';
 import { Image, TouchableOpacity, View } from 'react-native';
 
 const features = [
@@ -40,10 +41,17 @@ const Screen = () => {
           </View>
         </View>
         <View className="items-center justify-end gap-4 pb-16">
-          <Button title="Get Started" />
+          <Button
+            title="Get Started"
+            onPress={() => router.navigate('/authentication/sign-up.screen')}
+          />
           <View className="flex-row items-center gap-1">
             <Text>I already have an account.</Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              onPress={() => {
+                router.navigate('/authentication/sign-in.screen');
+              }}>
               <Text weight="bold" className="text-primary-500">
                 sign in
               </Text>

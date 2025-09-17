@@ -30,6 +30,7 @@ export const Button = forwardRef<View, ButtonProps>(({ title, ...touchableProps 
   return (
     <TouchableOpacity
       ref={ref}
+      activeOpacity={0.9}
       {...touchableProps}
       className={`${styles.button} ${touchableProps.className}`}>
       <LinearGradient
