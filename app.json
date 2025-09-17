@@ -1,23 +1,18 @@
 {
   "expo": {
-    "name": "tryftai-app",
-    "slug": "tryftai-app",
+    "name": "Tryft AI",
+    "slug": "tryftai",
     "version": "1.0.0",
-    "scheme": "tryftai-app",
+    "scheme": "tryftai",
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon.png"
     },
     "plugins": [
       "expo-router",
-      [
-        "expo-dev-launcher",
-        {
-          "launchMode": "most-recent"
-        }
-      ],
-      "expo-web-browser"
+      "expo-web-browser",
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true,
@@ -28,17 +23,27 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#0F766E"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tryftai.v1"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "com.tryftai.v1"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "6ae79aa4-2412-496d-abe3-8773877162be"
       }
     }
   }
