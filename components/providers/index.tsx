@@ -29,20 +29,23 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { persistor, store } from '@tryftai/store/store';
 import { ActivityIndicator } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { type IProviderProps } from './provider.types';
 
 export const Providers: React.FC<IProviderProps> = ({ children }) => {
   return (
-    <GestureHandlerRootView className="flex-1">
-      <BottomSheetModalProvider>
-        <Provider store={store}>
-          <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
-            {children}
-          </PersistGate>
-        </Provider>
-      </BottomSheetModalProvider>
-    </GestureHandlerRootView>
+    <SafeAreaProvider>
+      <GestureHandlerRootView className="flex-1">
+        <BottomSheetModalProvider>
+          <Provider store={store}>
+            <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
+              {children}
+            </PersistGate>
+          </Provider>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
 };
