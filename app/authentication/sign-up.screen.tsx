@@ -68,7 +68,7 @@ const Screen = () => {
                 onPress={() => {
                   router.navigate('/authentication/sign-in.screen');
                 }}>
-                <Text weight="bold" className="text-ink-600-500 underline">
+                <Text weight="bold" className="text-ink-600 underline">
                   Terms of Use
                 </Text>
               </TouchableOpacity>
@@ -78,7 +78,7 @@ const Screen = () => {
                 onPress={() => {
                   router.navigate('/authentication/sign-in.screen');
                 }}>
-                <Text weight="bold" className="text-ink-600-500 underline">
+                <Text weight="bold" className="text-ink-600 underline">
                   Privacy Policy
                 </Text>
               </TouchableOpacity>
