@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Text } from '@tryftai/components/atoms/text';
 import { Image } from 'expo-image';
 import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
+import { router } from 'expo-router';
 import { useRef, useState } from 'react';
 import {
   Dimensions,
@@ -89,7 +90,7 @@ const Screen = () => {
     if (currentIndex < PAGES.length - 1) {
       flatListRef.current?.scrollToIndex({ index: currentIndex + 1 });
     } else {
-      console.log('done');
+      router.navigate('/authentication/get-started.screen');
     }
   };
 
