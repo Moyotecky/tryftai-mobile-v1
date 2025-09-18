@@ -59,8 +59,12 @@ const Screen = () => {
           <View className="mt-5 flex-1 gap-3">
             <Input label="Email Address" />
             <Input label="Password" />
-            <View className="justify-start">
-              <TouchableOpacity activeOpacity={0.9}>
+            <View className="items-start">
+              <TouchableOpacity
+                activeOpacity={0.9}
+                onPress={() => {
+                  router.navigate('/authentication/forgot-password.screen');
+                }}>
                 <Text className="items-start text-primary-500" weight="semi_bold">
                   Forgot Password?
                 </Text>
@@ -68,7 +72,7 @@ const Screen = () => {
             </View>
           </View>
 
-          <View className="gap-4">
+          <View className="gap-4 pb-6">
             <Button
               title="sign in"
               // onPress={() => router.navigate('/authentication/sign-up.screen')}

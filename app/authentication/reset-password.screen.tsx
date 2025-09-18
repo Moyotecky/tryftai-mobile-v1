@@ -1,13 +1,13 @@
 /**
- * app/authentication/sign-up.screen.tsx
+ * app/authentication/sign-in.screen.tsx
  *
- * Allows users to sign up with email address.
+ * Allows users to sign in with email and password.
  * Uses KeyboardAwareScrollView to keep inputs visible when keyboard opens.
  * Includes:
  *  - Illustration at the top
- *  - Email input
- *  - Sign up button
- *  - Link to terms and conditions/Privacy Policy (not implemented yet)
+ *  - Email and Password inputs
+ *  - Sign In button
+ *  - Link to chat with support (not implemented yet)
  *
  * Uses reusable components: Input, Button, Text.
  * Styled with NativeWind.
@@ -41,60 +41,45 @@ const Screen = () => {
         </TouchableOpacity>
       </View>
       <KeyboardAwareScrollView className="flex-1" contentContainerClassName="flex-grow">
-        <View className="h-2/5 items-center justify-center">
+        <View className="h-2/6 items-center justify-center">
           <Image
             source={require('@tryftai/assets/images/auth/login/illustration.png')}
             className="h-40 w-40"
           />
         </View>
-        <View className="h-3/5 justify-between px-6 pt-5">
+        <View className="h-4/6 justify-between px-6 pt-5">
           <View className="gap-2">
             <Text weight="bold" className="text-4xl text-dark_blue-500">
-              Get started
+              Reset password
             </Text>
             <Text className="text-lg leading-6 text-ink-500" weight="medium">
-              Simply enter your email address to login or create an account.
+              Simply enter your phone number to login or create an account.
             </Text>
           </View>
           <View className="mt-5 flex-1 gap-3">
-            <Input label="Email Address" />
+            <Input label="Password" />
+            <Input label="Confirm Password" />
           </View>
 
-          <View className="gap-8 pb-8">
+          <View className="gap-4 pb-6">
+            <Button
+              title="Reset Password"
+              onPress={() => router.dismissTo('/authentication/sign-in.screen')}
+            />
             <View className="flex-row flex-wrap items-center justify-center gap-1">
-              <Text className="text-ink-400">By using our mobile app, you agree to our</Text>
+              <Text className="text-ink-400">
+                Having issues signing in, kindly contact support from here.
+              </Text>
               <TouchableOpacity
                 activeOpacity={0.9}
                 onPress={() => {
                   router.navigate('/authentication/sign-in.screen');
                 }}>
-                <Text weight="bold" className="text-ink-600 underline">
-                  Terms of Use
-                </Text>
-              </TouchableOpacity>
-              <Text>and</Text>
-              <TouchableOpacity
-                activeOpacity={0.9}
-                onPress={() => {
-                  router.navigate('/authentication/sign-in.screen');
-                }}>
-                <Text weight="bold" className="text-ink-600 underline">
-                  Privacy Policy
+                <Text weight="bold" className="text-primary-500">
+                  Chat with us
                 </Text>
               </TouchableOpacity>
             </View>
-            <Button
-              title="continue"
-              onPress={() => {
-                router.navigate({
-                  pathname: '/authentication/verify-email.screen',
-                  params: {
-                    email: 'test@yopmail.com',
-                    type: 'create-account',
-                  },
-                });
-              }}
-            />
           </View>
         </View>
       </KeyboardAwareScrollView>
