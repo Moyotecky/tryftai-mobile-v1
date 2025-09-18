@@ -40,9 +40,6 @@ const Sheet = React.forwardRef<
         ref={ref}
         {...props}
         index={index}
-        onChange={(index) => {
-          console.log(`Bottom Sheet Modal Presentation Changed =>`, index);
-        }}
         backgroundStyle={
           backgroundStyle ?? {
             backgroundColor: Colors[scheme].background,

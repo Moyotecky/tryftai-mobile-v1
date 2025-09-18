@@ -26,28 +26,30 @@ type ButtonProps = {
   title: string;
 } & TouchableOpacityProps;
 
-export const Button = forwardRef<View, ButtonProps>(({ title, ...touchableProps }, ref) => {
-  return (
-    <TouchableOpacity
-      ref={ref}
-      activeOpacity={0.9}
-      {...touchableProps}
-      className={`${styles.button} ${touchableProps.className}`}>
-      <LinearGradient
-        colors={['#0891B2', '#0F766E']}
-        style={{
-          height: 56,
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}>
-        <Text className={styles.buttonText}>{title}</Text>
-      </LinearGradient>
-    </TouchableOpacity>
-  );
-});
+export const Button = forwardRef<View, ButtonProps>(
+  ({ title, disabled = false, ...touchableProps }, ref) => {
+    return (
+      <TouchableOpacity
+        ref={ref}
+        activeOpacity={0.9}
+        {...touchableProps}
+        className={`${styles.button}  ${touchableProps.className}`}>
+        <LinearGradient
+          colors={disabled ? ['#5e647120', '#5e647120'] : ['#0891B2', '#0F766E']}
+          style={{
+            height: 56,
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}>
+          <Text className={`${styles.buttonText} ${disabled && 'text-ink-700/50'}`}>{title}</Text>
+        </LinearGradient>
+      </TouchableOpacity>
+    );
+  }
+);
 
 Button.displayName = 'Button';
 

@@ -64,7 +64,6 @@ const Screen = () => {
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
       scrollX.value = event.contentOffset.x;
-      console.log('scrollX:', event.contentOffset.x);
     },
   });
 
