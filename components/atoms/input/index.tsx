@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+import { Control, FieldValues, useController } from 'react-hook-form';
 import { TextInput, TextInputProps, View } from 'react-native';
 import Animated, {
   interpolate,
@@ -7,12 +8,24 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-interface InputProps extends TextInputProps {
+interface InputProps<T extends FieldValues> extends TextInputProps {
   label: string;
+  name: keyof T;
+  control?: Control<T>;
 }
 
-export const Input: React.FC<InputProps> = ({ label, value, onChangeText, ...props }) => {
+export const Input = <T extends FieldValues>({
+  label,
+  value,
+  onChangeText,
+  ...props
+}: InputProps<T>) => {
   const isFocused = useSharedValue(false);
+  const { field } = useController({
+    name: props.name as any,
+    control: props.control,
+    disabled: props.editable === false,
+  });
 
   // Update focus state
   const handleFocus = () => {
@@ -49,10 +62,10 @@ export const Input: React.FC<InputProps> = ({ label, value, onChangeText, ...pro
       </Animated.Text>
       <TextInput
         {...props}
-        value={value}
-        onChangeText={onChangeText}
+        value={value ?? field?.value}
+        onChangeText={onChangeText ?? field?.onChange}
         onFocus={handleFocus}
-        onBlur={handleBlur}
+        onBlur={handleBlur ?? field?.onBlur}
         className="h-full w-full rounded-md px-4 pt-4 text-base text-black/50"
       />
     </View>

@@ -18,15 +18,40 @@
  */
 
 import { Ionicons } from '@expo/vector-icons';
+import { RegisterUserEmailRequest } from '@tryftai/api/contracts/auth/register-user-account.contract';
+import { useRegisterUserAccount } from '@tryftai/api/hooks/auth/useRegisterUser.hook';
 import { Button } from '@tryftai/components/atoms/button';
 import { Input } from '@tryftai/components/atoms/input';
 import { Text } from '@tryftai/components/atoms/text';
 import { router } from 'expo-router';
+import { useForm } from 'react-hook-form';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Screen = () => {
+  const registerUserAccountMutation = useRegisterUserAccount();
+
+  const form = useForm<RegisterUserEmailRequest>();
+
+  const handleSubmit = form.handleSubmit((values) => {
+    registerUserAccountMutation.mutate(values, {
+      onSuccess: (data) => {
+        console.log('user registration successful', data);
+        router.navigate({
+          pathname: '/authentication/verify-email.screen',
+          params: {
+            email: data?.user?.email,
+            type: 'create-account',
+          },
+        });
+      },
+      onError: () => {
+        console.log('error');
+      },
+    });
+  });
+
   return (
     <SafeAreaView className="flex-1 bg-background_light-500">
       <View className="ml-4 items-start pr-2">
@@ -57,7 +82,7 @@ const Screen = () => {
             </Text>
           </View>
           <View className="mt-5 flex-1 gap-3">
-            <Input label="Email Address" />
+            <Input label="Email Address" name="email" control={form.control} />
           </View>
 
           <View className="gap-8 pb-8">
@@ -83,18 +108,7 @@ const Screen = () => {
                 </Text>
               </TouchableOpacity>
             </View>
-            <Button
-              title="continue"
-              onPress={() => {
-                router.navigate({
-                  pathname: '/authentication/verify-email.screen',
-                  params: {
-                    email: 'test@yopmail.com',
-                    type: 'create-account',
-                  },
-                });
-              }}
-            />
+            <Button title="continue" onPress={handleSubmit} />
           </View>
         </View>
       </KeyboardAwareScrollView>
