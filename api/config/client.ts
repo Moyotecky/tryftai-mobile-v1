@@ -1,17 +1,18 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Config from '@tryftai/libs/config/env';
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: '',
+  baseURL: Config.apiUrl,
   withCredentials: true,
   headers: {
-    // 'Content-Type': 'application/json',
+    'Content-Type': 'application/json',
   },
 });
 
 apiClient.interceptors.request.use(
   async (config) => {
-    const token =
-      typeof window !== 'undefined' ? localStorage.getItem('delegate_access_token') : null;
+    const token = await AsyncStorage.getItem('token');
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

@@ -4,8 +4,6 @@ import { apiClient } from '../config/client';
 import { endpoints, Endpoints, Url } from '../config/endpoints';
 
 export class ApiClient {
-  private api = apiClient;
-
   static resolveUrl<T extends Url>(
     url: T,
     ...args: T extends (...a: infer P) => string ? P : []
@@ -29,7 +27,8 @@ export class ApiClient {
       data: body,
     };
 
-    const res = await api(config);
+    const res = await apiClient(config);
+    console.log(res);
     return res.data;
   }
 }

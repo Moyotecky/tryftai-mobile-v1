@@ -26,6 +26,7 @@
  * Created: Sept 2025
  */
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { persistor, store } from '@tryftai/store/store';
 import { ActivityIndicator } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -35,18 +36,28 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { FullScreenLoader } from '../molecules/full-screen-loader';
 import { type IProviderProps } from './provider.types';
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
+
 export const Providers: React.FC<IProviderProps> = ({ children }) => {
   return (
     <SafeAreaProvider>
       <GestureHandlerRootView className="flex-1">
-        <BottomSheetModalProvider>
-          <Provider store={store}>
-            <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
-              <FullScreenLoader />
-              {children}
-            </PersistGate>
-          </Provider>
-        </BottomSheetModalProvider>
+        <QueryClientProvider client={queryClient}>
+          <BottomSheetModalProvider>
+            <Provider store={store}>
+              <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
+                <FullScreenLoader />
+                {children}
+              </PersistGate>
+            </Provider>
+          </BottomSheetModalProvider>
+        </QueryClientProvider>
       </GestureHandlerRootView>
     </SafeAreaProvider>
   );

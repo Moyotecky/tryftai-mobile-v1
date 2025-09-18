@@ -16,7 +16,7 @@ interface InputProps<T extends FieldValues> extends TextInputProps {
 
 export const Input = <T extends FieldValues>({
   label,
-  value,
+  value: _value,
   onChangeText,
   ...props
 }: InputProps<T>) => {
@@ -27,10 +27,13 @@ export const Input = <T extends FieldValues>({
     disabled: props.editable === false,
   });
 
+  const value = _value || field.value;
+
   // Update focus state
   const handleFocus = () => {
     isFocused.value = true;
   };
+
   const handleBlur = () => {
     if (!value) isFocused.value = false;
   };
@@ -62,10 +65,10 @@ export const Input = <T extends FieldValues>({
       </Animated.Text>
       <TextInput
         {...props}
-        value={value ?? field?.value}
-        onChangeText={onChangeText ?? field?.onChange}
+        value={value}
+        onChangeText={onChangeText || field?.onChange}
         onFocus={handleFocus}
-        onBlur={handleBlur ?? field?.onBlur}
+        onBlur={handleBlur || field?.onBlur}
         className="h-full w-full rounded-md px-4 pt-4 text-base text-black/50"
       />
     </View>

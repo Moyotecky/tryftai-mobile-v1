@@ -21,19 +21,19 @@ export const endpoints = {
   auth: {
     login: {
       method: 'post',
-      url: '/auth/user/login',
+      url: '/auth/login',
       request: {} as LoginUserEmailRequest,
       response: {} as LoginUserEmailResponse,
     } satisfies EndpointDef<LoginUserEmailRequest, LoginUserEmailResponse>,
     registerEmail: {
       method: 'post',
-      url: '/auth/user/register-email',
+      url: '/auth/register-email',
       request: {} as RegisterUserEmailRequest,
       response: {} as RegisterUserEmailResponse,
     } satisfies EndpointDef<RegisterUserEmailRequest, RegisterUserEmailResponse>,
     resetPassword: {
       method: 'post',
-      url: '/auth/user/reset-password',
+      url: '/auth/reset-password',
     } satisfies EndpointDef<undefined, undefined>,
   },
 
@@ -44,19 +44,19 @@ export const endpoints = {
   userNotification: {
     getNotifications: {
       method: 'get',
-      url: '/user/notifications',
+      url: '/notifications',
     },
     markRead: {
       method: 'patch',
-      url: (notificationId: string) => `/user/notifications/${notificationId}/read`,
+      url: (notificationId: string) => `/notifications/${notificationId}/read`,
     },
     markAllRead: {
       method: 'post',
-      url: '/user/notifications/mark-all-read',
+      url: '/notifications/mark-all-read',
     },
     delete: {
       method: 'delete',
-      url: (notificationId: string) => `/user/notifications/${notificationId}`,
+      url: (notificationId: string) => `/notifications/${notificationId}`,
     },
   },
 
@@ -64,15 +64,15 @@ export const endpoints = {
   userPin: {
     create: {
       method: 'post',
-      url: '/user/pin/create',
+      url: '/pin/create',
     },
     verify: {
       method: 'post',
-      url: '/user/pin/verify',
+      url: '/pin/verify',
     },
     change: {
       method: 'post',
-      url: '/user/pin/change',
+      url: '/pin/change',
     },
   },
 } as const;

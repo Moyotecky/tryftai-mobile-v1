@@ -18,15 +18,34 @@
  */
 
 import { Ionicons } from '@expo/vector-icons';
+import { LoginUserEmailRequest } from '@tryftai/api/contracts/auth/login-user-account.contract';
+import { useLoginUserAccount } from '@tryftai/api/hooks/auth/useLoginUser.hook';
 import { Button } from '@tryftai/components/atoms/button';
 import { Input } from '@tryftai/components/atoms/input';
 import { Text } from '@tryftai/components/atoms/text';
 import { router } from 'expo-router';
+import { useForm } from 'react-hook-form';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Screen = () => {
+  const registerUserAccountMutation = useLoginUserAccount();
+
+  const form = useForm<LoginUserEmailRequest>();
+
+  const handleSubmit = form.handleSubmit((values) => {
+    registerUserAccountMutation.mutate(values, {
+      onSuccess: (data) => {
+        console.log('user login successful', data);
+        // navigate to dashboard
+      },
+      onError: (err) => {
+        console.log('error', JSON.stringify(err));
+      },
+    });
+  });
+
   return (
     <SafeAreaView className="flex-1 bg-background_light-500">
       <View className="ml-4 items-start pr-2">
@@ -57,8 +76,8 @@ const Screen = () => {
             </Text>
           </View>
           <View className="mt-5 flex-1 gap-3">
-            <Input label="Email Address" />
-            <Input label="Password" />
+            <Input label="Email Address" name="email" control={form.control} />
+            <Input label="Password" name="password" control={form.control} />
             <View className="items-start">
               <TouchableOpacity
                 activeOpacity={0.9}
@@ -73,10 +92,7 @@ const Screen = () => {
           </View>
 
           <View className="gap-4 pb-6">
-            <Button
-              title="sign in"
-              // onPress={() => router.navigate('/authentication/sign-up.screen')}
-            />
+            <Button title="sign in" onPress={handleSubmit} />
             <View className="flex-row flex-wrap items-center justify-center gap-1">
               <Text className="text-ink-400">
                 Having issues signing in, kindly contact support from here.

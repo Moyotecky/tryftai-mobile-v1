@@ -46,8 +46,8 @@ const Screen = () => {
           },
         });
       },
-      onError: () => {
-        console.log('error');
+      onError: (err) => {
+        console.log('error', JSON.stringify(err));
       },
     });
   });
