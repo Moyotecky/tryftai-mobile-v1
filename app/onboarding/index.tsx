@@ -133,7 +133,7 @@ const Screen = () => {
               <Text className="text-4xl text-white" weight="bold">
                 {item.subtitle}
               </Text>
-              <Text className="text-sky_light-500/90 text-lg leading-6">{item.description}</Text>
+              <Text className="text-lg leading-6 text-sky_light-500/90">{item.description}</Text>
             </View>
           </View>
         )}
@@ -151,12 +151,14 @@ const Screen = () => {
       {/* Pagination */}
 
       {/* Footer */}
-      <View className="flex-row items-center justify-between rounded-t-3xl bg-black/40 px-4 pb-12 pt-6">
+      <View className="flex-row items-center justify-between rounded-t-3xl bg-black/40 px-4 pb-20 pt-6">
         <View className="flex-row items-center justify-between">
           {PAGES.map((_, i) => {
             const isActive = currentIndex === i;
             return (
-              <View
+              <TouchableOpacity
+                activeOpacity={0.9}
+                onPress={() => flatListRef.current?.scrollToIndex({ index: i })}
                 key={i}
                 className="mx-1 h-12 w-12 items-center justify-center overflow-hidden rounded-full"
                 style={[
@@ -173,7 +175,7 @@ const Screen = () => {
                     <Ionicons name="checkmark" size={16} color="white" />
                   </View>
                 )}
-              </View>
+              </TouchableOpacity>
             );
           })}
         </View>

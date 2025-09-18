@@ -21,7 +21,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Input } from '@tryftai/components/atoms/input';
 import { Text } from '@tryftai/components/atoms/text';
 import { useFullScreenLoadingStore } from '@tryftai/hooks/store/useFullScreenLoadingStore';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -30,6 +30,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const Screen = () => {
   const { isLoading, startLoading, stopLoading } = useFullScreenLoadingStore();
 
+  const { email, type } = useLocalSearchParams();
+
   useEffect(() => {
     const delayTimer = setTimeout(() => {
       startLoading();
@@ -37,6 +39,11 @@ const Screen = () => {
       // Simulate API call duration (e.g., 3 seconds)
       const apiTimer = setTimeout(() => {
         stopLoading();
+        router.push(
+          type === 'create-account'
+            ? '/authentication/choose-plan.screen'
+            : '/authentication/reset-password.screen'
+        );
       }, 3000);
 
       // Cleanup API timer if unmounted
@@ -49,7 +56,7 @@ const Screen = () => {
   }, []);
 
   return (
-    <SafeAreaView className="bg-background_light-500 flex-1">
+    <SafeAreaView className="flex-1 bg-background_light-500">
       <View className="ml-4 items-start pr-2">
         <TouchableOpacity
           activeOpacity={0.9}
@@ -70,13 +77,13 @@ const Screen = () => {
         </View>
         <View className="h-3/5 justify-between px-6 pt-5">
           <View className="gap-2">
-            <Text weight="bold" className="text-dark_blue-500 text-4xl">
+            <Text weight="bold" className="text-4xl text-dark_blue-500">
               Verify Email
             </Text>
-            <Text className="text-ink-500 text-lg leading-6" weight="medium">
+            <Text className="text-lg leading-6 text-ink-500" weight="medium">
               Please enter the 6-digit code just sent to
-              <Text className="text-ink-500 text-lg leading-6" weight="bold">
-                moyotecky@gmail.com
+              <Text className="text-lg leading-6 text-ink-500" weight="bold">
+                {email}
               </Text>
             </Text>
           </View>

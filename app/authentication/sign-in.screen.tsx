@@ -28,7 +28,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Screen = () => {
   return (
-    <SafeAreaView className="bg-background_light-500 flex-1">
+    <SafeAreaView className="flex-1 bg-background_light-500">
       <View className="ml-4 items-start pr-2">
         <TouchableOpacity
           activeOpacity={0.9}
@@ -41,34 +41,38 @@ const Screen = () => {
         </TouchableOpacity>
       </View>
       <KeyboardAwareScrollView className="flex-1" contentContainerClassName="flex-grow">
-        <View className="h-2/5 items-center justify-center">
+        <View className="h-2/6 items-center justify-center">
           <Image
             source={require('@tryftai/assets/images/auth/login/illustration.png')}
             className="h-40 w-40"
           />
         </View>
-        <View className="h-3/5 justify-between px-6 pt-5">
+        <View className="h-4/6 justify-between px-6 pt-5">
           <View className="gap-2">
-            <Text weight="bold" className="text-dark_blue-500 text-4xl">
+            <Text weight="bold" className="text-4xl text-dark_blue-500">
               Sign In
             </Text>
-            <Text className="text-ink-500 text-lg leading-6" weight="medium">
+            <Text className="text-lg leading-6 text-ink-500" weight="medium">
               Simply enter your phone number to login or create an account.
             </Text>
           </View>
           <View className="mt-5 flex-1 gap-3">
             <Input label="Email Address" />
             <Input label="Password" />
-            <View className="justify-start">
-              <TouchableOpacity activeOpacity={0.9}>
-                <Text className="text-primary-500 items-start" weight="semi_bold">
+            <View className="items-start">
+              <TouchableOpacity
+                activeOpacity={0.9}
+                onPress={() => {
+                  router.navigate('/authentication/forgot-password.screen');
+                }}>
+                <Text className="items-start text-primary-500" weight="semi_bold">
                   Forgot Password?
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
 
-          <View className="gap-4">
+          <View className="gap-4 pb-6">
             <Button
               title="sign in"
               // onPress={() => router.navigate('/authentication/sign-up.screen')}
