@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
+import { LocationIcon } from '@tryftai/assets/icons/LocationIcon';
 import { Button } from '@tryftai/components/atoms/button';
 import { Input } from '@tryftai/components/atoms/input';
 import { Text } from '@tryftai/components/atoms/text';
@@ -55,6 +56,12 @@ const Screen = () => {
     }
   };
 
+  const getProgressStep = () => {
+    if (currentStep === 0) return 1;
+    if (currentStep === 1) return null;
+    return currentStep;
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-background_light-300">
       <View className="mt-2 flex-row justify-between px-4 py-4">
@@ -68,7 +75,7 @@ const Screen = () => {
         {currentStep !== 1 && (
           <View className="rounded-full bg-white px-5 py-3">
             <Text weight="semi_bold">
-              Step {currentStep + 1} of {steps.length - 1}
+              Step {getProgressStep()} of {steps.length - 1}
             </Text>
           </View>
         )}
@@ -100,6 +107,8 @@ const Screen = () => {
               <StepThree />
             ) : currentStep === 3 ? (
               <StepFour />
+            ) : currentStep === 4 ? (
+              <StepFive />
             ) : null}
           </View>
 
@@ -174,6 +183,7 @@ const StepTwo = () => {
 
 const StepThree = () => {
   const searchAddressSheetRef = useSheetRef();
+
   return (
     <View className="flex-1">
       <Input
@@ -184,7 +194,25 @@ const StepThree = () => {
         }}
       />
       <Sheet ref={searchAddressSheetRef} snapPoints={['90%']}>
-        <BottomSheetTextInput />
+        <View className="p-4">
+          <View className="flex-row items-center gap-3 rounded-full bg-[#EEF0F2] px-3">
+            <View className="pl-2">
+              <Ionicons name="search" size={16} className="text-gray-400" />
+            </View>
+            <BottomSheetTextInput
+              placeholder="Search Address"
+              className="flex-1 py-5 text-base leading-5"
+            />
+            <View className="items-center justify-center rounded-full bg-white p-3">
+              <Ionicons name="close" size={16} className="text-gray-400" />
+            </View>
+          </View>
+          <View>
+            <TouchableOpacity>
+              <LocationIcon />
+            </TouchableOpacity>
+          </View>
+        </View>
       </Sheet>
     </View>
   );
@@ -193,7 +221,76 @@ const StepThree = () => {
 const StepFour = () => {
   return (
     <View>
-      <Text>Step 4</Text>
+      <Input label="Date of Birth (MM / DD / YYYY)" />
+    </View>
+  );
+};
+
+const StepFive = () => {
+  return (
+    <View>
+      <View className="gap-4">
+        <View className="flex-row items-center justify-between border-b border-b-gray-200 py-4">
+          <View className="flex-[0.8] gap-3">
+            <Text className="text-[#363D4E]" weight="semi_bold">
+              Full Legal Name
+            </Text>
+            <Text className="text-[#040C22]" weight="bold">
+              John Abraham
+            </Text>
+          </View>
+          <TouchableOpacity className="rounded-full bg-white px-7 py-4">
+            <Text className="text-sm" weight="bold">
+              Edit
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View className="flex-row items-center justify-between border-b border-b-gray-200 py-4">
+          <View className="flex-[0.8] gap-3">
+            <Text className="text-[#363D4E]" weight="semi_bold">
+              Date of Birth
+            </Text>
+            <Text className="text-[#040C22]" weight="bold">
+              28 May 1992
+            </Text>
+          </View>
+          <TouchableOpacity className="rounded-full bg-white px-7 py-4">
+            <Text className="text-sm" weight="bold">
+              Edit
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View className="flex-row items-center justify-between border-b border-b-gray-200 py-4">
+          <View className="flex-[0.8] gap-3">
+            <Text className="text-[#363D4E]" weight="semi_bold">
+              Social Security Number
+            </Text>
+            <Text className="text-[#040C22]" weight="bold">
+              *8349
+            </Text>
+          </View>
+          <TouchableOpacity className="rounded-full bg-white px-7 py-4">
+            <Text className="text-sm" weight="bold">
+              Edit
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View className="flex-row items-center justify-between py-4">
+          <View className="flex-[0.8] gap-3">
+            <Text className="text-[#363D4E]" weight="semi_bold">
+              Residential Address
+            </Text>
+            <Text className="text-[#040C22]" weight="bold">
+              428 Greenwich Ave #29A, Brooklyn, NY 11239
+            </Text>
+          </View>
+          <TouchableOpacity className="rounded-full bg-white px-7 py-4">
+            <Text className="text-sm" weight="bold">
+              Edit
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };
