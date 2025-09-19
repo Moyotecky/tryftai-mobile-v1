@@ -75,7 +75,7 @@ const Screen = () => {
           <View className="gap-4 pb-6">
             <Button
               title="sign in"
-              // onPress={() => router.navigate('/authentication/sign-up.screen')}
+              onPress={() => router.navigate('/(private)/home')}
             />
             <View className="flex-row flex-wrap items-center justify-center gap-1">
               <Text className="text-ink-400">
