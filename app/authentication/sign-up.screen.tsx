@@ -18,11 +18,17 @@
  */
 
 import { Ionicons } from '@expo/vector-icons';
-import { RegisterUserEmailRequest } from '@tryftai/api/contracts/auth/register-user-account.contract';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  RegisterUserEmailRequest,
+  RegisterUserEmailRequestSchema,
+} from '@tryftai/api/contracts/auth/register-user-account.contract';
 import { useRegisterUserAccount } from '@tryftai/api/hooks/auth/useRegisterUser.hook';
 import { Button } from '@tryftai/components/atoms/button';
-import { Input } from '@tryftai/components/atoms/input';
+import { FormInput } from '@tryftai/components/atoms/input/form-input';
 import { Text } from '@tryftai/components/atoms/text';
+import { formatApiError } from '@tryftai/libs/utils/error-handler';
+import { Notify } from '@tryftai/libs/utils/toast.config';
 import { router } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { Image, TouchableOpacity, View } from 'react-native';
@@ -32,7 +38,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const Screen = () => {
   const registerUserAccountMutation = useRegisterUserAccount();
 
-  const form = useForm<RegisterUserEmailRequest>();
+  const form = useForm<RegisterUserEmailRequest>({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+    resolver: zodResolver(RegisterUserEmailRequestSchema),
+  });
 
   const handleSubmit = form.handleSubmit((values) => {
     registerUserAccountMutation.mutate(values, {
@@ -47,7 +57,10 @@ const Screen = () => {
         });
       },
       onError: (err) => {
-        console.log('error', JSON.stringify(err));
+        Notify('error', {
+          message: 'Error',
+          description: formatApiError(err),
+        });
       },
     });
   });
@@ -82,7 +95,17 @@ const Screen = () => {
             </Text>
           </View>
           <View className="mt-5 flex-1 gap-3">
-            <Input label="Email Address" name="email" control={form.control} />
+            <FormInput
+              label="Email Address"
+              name="email"
+              control={form.control}
+              error={form?.formState?.errors?.email?.message}
+              autoCapitalize="none"
+              autoComplete="email"
+              keyboardType="email-address"
+              returnKeyType="next"
+              textContentType="emailAddress"
+            />
           </View>
 
           <View className="gap-8 pb-8">
@@ -108,7 +131,11 @@ const Screen = () => {
                 </Text>
               </TouchableOpacity>
             </View>
-            <Button title="continue" onPress={handleSubmit} />
+            <Button
+              title="continue"
+              onPress={handleSubmit}
+              isLoading={registerUserAccountMutation.isPending}
+            />
           </View>
         </View>
       </KeyboardAwareScrollView>

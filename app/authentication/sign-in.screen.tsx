@@ -18,11 +18,17 @@
  */
 
 import { Ionicons } from '@expo/vector-icons';
-import { LoginUserEmailRequest } from '@tryftai/api/contracts/auth/login-user-account.contract';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  LoginUserEmailRequest,
+  LoginUserEmailRequestSchema,
+} from '@tryftai/api/contracts/auth/login-user-account.contract';
 import { useLoginUserAccount } from '@tryftai/api/hooks/auth/useLoginUser.hook';
 import { Button } from '@tryftai/components/atoms/button';
-import { Input } from '@tryftai/components/atoms/input';
+import { FormInput } from '@tryftai/components/atoms/input/form-input';
 import { Text } from '@tryftai/components/atoms/text';
+import { formatApiError } from '@tryftai/libs/utils/error-handler';
+import { Notify } from '@tryftai/libs/utils/toast.config';
 import { router } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { Image, TouchableOpacity, View } from 'react-native';
@@ -30,18 +36,25 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Screen = () => {
-  const registerUserAccountMutation = useLoginUserAccount();
+  const loginUserMutation = useLoginUserAccount();
 
-  const form = useForm<LoginUserEmailRequest>();
+  const form = useForm<LoginUserEmailRequest>({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+    resolver: zodResolver(LoginUserEmailRequestSchema),
+  });
 
   const handleSubmit = form.handleSubmit((values) => {
-    registerUserAccountMutation.mutate(values, {
+    loginUserMutation.mutate(values, {
       onSuccess: (data) => {
         console.log('user login successful', data);
         // navigate to dashboard
       },
       onError: (err) => {
-        console.log('error', JSON.stringify(err));
+        Notify('error', {
+          message: 'Error',
+          description: formatApiError(err),
+        });
       },
     });
   });
@@ -76,8 +89,26 @@ const Screen = () => {
             </Text>
           </View>
           <View className="mt-5 flex-1 gap-3">
-            <Input label="Email Address" name="email" control={form.control} />
-            <Input label="Password" name="password" control={form.control} />
+            <FormInput
+              label="Email Address"
+              name="email"
+              control={form.control}
+              error={form?.formState?.errors?.email?.message}
+              autoCapitalize="none"
+              autoComplete="email"
+              keyboardType="email-address"
+              returnKeyType="next"
+              textContentType="emailAddress"
+            />
+            <FormInput
+              label="Password"
+              name="password"
+              control={form.control}
+              error={form?.formState?.errors?.password?.message}
+              autoCapitalize="none"
+              autoComplete="password"
+              secureTextEntry
+            />
             <View className="items-start">
               <TouchableOpacity
                 activeOpacity={0.9}
@@ -92,7 +123,11 @@ const Screen = () => {
           </View>
 
           <View className="gap-4 pb-6">
-            <Button title="sign in" onPress={handleSubmit} />
+            <Button
+              title="sign in"
+              onPress={handleSubmit}
+              isLoading={loginUserMutation.isPending}
+            />
             <View className="flex-row flex-wrap items-center justify-center gap-1">
               <Text className="text-ink-400">
                 Having issues signing in, kindly contact support from here.

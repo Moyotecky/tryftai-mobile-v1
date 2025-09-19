@@ -32,3 +32,12 @@ export class ApiClient {
     return res.data;
   }
 }
+
+export type ApiError = {
+  response: {
+    data: {
+      message: string;
+      description: string;
+    };
+  };
+};

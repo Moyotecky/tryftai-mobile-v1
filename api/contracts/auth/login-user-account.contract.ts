@@ -2,8 +2,8 @@ import { z } from 'zod';
 import { UserSchema } from '../user/user.contract';
 
 export const LoginUserEmailRequestSchema = z.object({
-  email: z.email(),
-  password: z.string(),
+  email: z.email({ error: 'Email is invalid' }).min(1, 'Email is required'),
+  password: z.string().min(1, 'Password is required'),
 });
 
 export type LoginUserEmailRequest = z.infer<typeof LoginUserEmailRequestSchema>;
