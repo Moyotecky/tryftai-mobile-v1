@@ -125,8 +125,9 @@ const Screen = () => {
           <View className="gap-4 pb-6">
             <Button
               title="sign in"
-              onPress={handleSubmit}
-              isLoading={loginUserMutation.isPending}
+              // onPress={handleSubmit}
+              // isLoading={loginUserMutation.isPending}
+              onPress={() => router.navigate('/(private)/home')}
             />
             <View className="flex-row flex-wrap items-center justify-center gap-1">
               <Text className="text-ink-400">
