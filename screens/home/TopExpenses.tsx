@@ -48,10 +48,10 @@ const expenseCategories: ExpenseCategory[] = [
 
 export function TopExpenses() {
     return (
-        <View>
+        <View className='pl-4'>
             <Text weight='bold' className='text-3xl'>Top expenses</Text>
 
-            <ScrollView horizontal contentContainerClassName='py-4 gap-8 mt-4'>
+            <ScrollView horizontal contentContainerClassName='py-4 gap-8 mt-4 pl-4'>
                 {
                     expenseCategories.map(expenseCategory => (<Card key={expenseCategory.category} style={{ width: 300 }}>
 

@@ -7,7 +7,6 @@ import { useState } from 'react'
 import { Pressable, View, ViewStyle } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-
 type ActionCardProps = {
     icon: ImageSource
     label: string
@@ -34,9 +33,10 @@ export function Header() {
 
     return (
         <View
-            className="gap-8 mt-5"
-            style={{ height: 375 - top - 20 }}
+            className="gap-8 px-4"
+            style={{ paddingTop: top + 20, paddingBottom: 40 }}
         >
+
             {/* Balance */}
             <View>
                 <View className="flex flex-row items-center gap-2">
@@ -72,6 +72,7 @@ export function Header() {
                     />
                 </View>
             </View>
+
         </View>
     )
 }
