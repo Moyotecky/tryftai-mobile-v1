@@ -1,5 +1,6 @@
 
-import { Text } from '@tryftai/components'
+
+import { Text } from '@tryftai/components/atoms'
 import { Header, MonthDiff, Score, TopExpenses, YourTopSavings } from '@tryftai/screens/home'
 import { Image } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'

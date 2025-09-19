@@ -1,4 +1,6 @@
-import { Button, Card, Text } from '@tryftai/components';
+
+import { Button, Text } from '@tryftai/components/atoms';
+import { Card } from '@tryftai/components/molecules';
 import CreditScore from './components/Arc';
 
 const Score = () => {

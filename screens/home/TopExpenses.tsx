@@ -1,5 +1,5 @@
-
-import { Card, ProgressBar, Text } from '@tryftai/components';
+import { Text } from '@tryftai/components/atoms';
+import { Card, ProgressBar } from '@tryftai/components/molecules';
 import { formatPrice } from '@tryftai/helpers';
 import { Image } from 'expo-image';
 import { ScrollView, View } from 'react-native';

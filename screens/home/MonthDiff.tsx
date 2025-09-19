@@ -1,6 +1,7 @@
 
 import { Ionicons } from "@expo/vector-icons";
-import { Card, Divider, Text } from '@tryftai/components';
+import { Divider, Text } from "@tryftai/components/atoms";
+import { Card } from "@tryftai/components/molecules";
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 

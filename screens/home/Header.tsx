@@ -1,6 +1,6 @@
 // Header.tsx
 import Feather from '@expo/vector-icons/Feather'
-import { Divider, Text } from '@tryftai/components'
+import { Divider, Text } from '@tryftai/components/atoms'
 import { formatPrice } from '@tryftai/helpers'
 import { Image, ImageSource } from 'expo-image'
 import { useState } from 'react'
