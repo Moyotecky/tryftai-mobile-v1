@@ -1,4 +1,8 @@
 import {
+  ForgotUserPasswordRequest,
+  ForgotUserPasswordResponse,
+} from '../contracts/auth/forgot-user-account-password.contract';
+import {
   LoginUserEmailRequest,
   LoginUserEmailResponse,
 } from '../contracts/auth/login-user-account.contract';
@@ -6,6 +10,10 @@ import {
   RegisterUserEmailRequest,
   RegisterUserEmailResponse,
 } from '../contracts/auth/register-user-account.contract';
+import {
+  ResetUserPasswordRequest,
+  ResetUserPasswordResponse,
+} from '../contracts/auth/reset-user-account-password.contract';
 
 export type Url = string | ((...args: any[]) => string);
 
@@ -31,10 +39,18 @@ export const endpoints = {
       request: {} as RegisterUserEmailRequest,
       response: {} as RegisterUserEmailResponse,
     } satisfies EndpointDef<RegisterUserEmailRequest, RegisterUserEmailResponse>,
+    forgotPassword: {
+      method: 'post',
+      url: '/auth/forgot-password',
+      request: {} as ForgotUserPasswordRequest,
+      response: {} as ForgotUserPasswordResponse,
+    } satisfies EndpointDef<ForgotUserPasswordRequest, ForgotUserPasswordResponse>,
     resetPassword: {
       method: 'post',
       url: '/auth/reset-password',
-    } satisfies EndpointDef<undefined, undefined>,
+      request: {} as ResetUserPasswordRequest,
+      response: {} as ResetUserPasswordResponse,
+    } satisfies EndpointDef<ResetUserPasswordRequest, ResetUserPasswordResponse>,
   },
 
   // users

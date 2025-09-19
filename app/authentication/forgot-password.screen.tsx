@@ -18,15 +18,53 @@
  */
 
 import { Ionicons } from '@expo/vector-icons';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  ForgotUserPasswordRequest,
+  ForgotUserPasswordRequestSchema,
+} from '@tryftai/api/contracts/auth/forgot-user-account-password.contract';
+import { useForgetUserPassword } from '@tryftai/api/hooks/auth/useForgotPassword.hook';
 import { Button } from '@tryftai/components/atoms/button';
-import { Input } from '@tryftai/components/atoms/input';
+import { FormInput } from '@tryftai/components/atoms/input/form-input';
 import { Text } from '@tryftai/components/atoms/text';
+import { formatApiError } from '@tryftai/libs/utils/error-handler';
+import { Notify } from '@tryftai/libs/utils/toast.config';
 import { router } from 'expo-router';
+import { useForm } from 'react-hook-form';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Screen = () => {
+  const forgotUserPasswordMutation = useForgetUserPassword();
+
+  const form = useForm<ForgotUserPasswordRequest>({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+    resolver: zodResolver(ForgotUserPasswordRequestSchema),
+  });
+
+  const handleSubmit = form.handleSubmit((values) => {
+    forgotUserPasswordMutation.mutate(values, {
+      onSuccess: (data) => {
+        console.log('user login successful', data);
+        // navigate to verify-email
+        router.navigate({
+          pathname: '/authentication/verify-email.screen',
+          params: {
+            email: 'test@yopmail.com',
+            type: 'forgot-password',
+          },
+        });
+      },
+      onError: (err) => {
+        Notify('error', {
+          message: 'Error',
+          description: formatApiError(err),
+        });
+      },
+    });
+  });
   return (
     <SafeAreaView className="flex-1 bg-background_light-500">
       <View className="ml-4 items-start pr-2">
@@ -57,7 +95,17 @@ const Screen = () => {
             </Text>
           </View>
           <View className="mt-5 flex-1 gap-3">
-            <Input label="Email Address" />
+            <FormInput
+              label="Email Address"
+              name="email"
+              control={form.control}
+              error={form?.formState?.errors?.email?.message}
+              autoCapitalize="none"
+              autoComplete="email"
+              keyboardType="email-address"
+              returnKeyType="next"
+              textContentType="emailAddress"
+            />
           </View>
 
           <View className="gap-8 pb-8">
@@ -85,15 +133,8 @@ const Screen = () => {
             </View>
             <Button
               title="Continue"
-              onPress={() =>
-                router.navigate({
-                  pathname: '/authentication/verify-email.screen',
-                  params: {
-                    email: 'test@yopmail.com',
-                    type: 'forgot-password',
-                  },
-                })
-              }
+              onPress={handleSubmit}
+              isLoading={forgotUserPasswordMutation.isPending}
             />
           </View>
         </View>
