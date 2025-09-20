@@ -1,11 +1,11 @@
 
 
 import { Text } from '@tryftai/components/atoms'
-import { Header, MonthDiff, Score, TopExpenses, YourTopSavings } from '@tryftai/screens/home'
+import { Header, MonthDiff, Score, TopExpenses, YourTopSavings } from '@tryftai/components/modules/home'
 import { Image } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
-import { ScrollView, View, ViewStyle } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { ScrollView, StyleSheet, View, ViewStyle } from 'react-native'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 
 export default function Home() {
@@ -21,11 +21,18 @@ export default function Home() {
         </LinearGradient>
     }
     return (
-        <>
-            <GradientBg
-                style={{ width: '100%', position: 'absolute', zIndex: 1000 }}
-            >
-                <View className="flex justify-between flex-row mt-4 items-center" style={{ marginTop: top + 20, marginHorizontal: 16, paddingBottom: 20 }}>
+        <View className='flex-1'>
+
+            <LinearGradient
+                colors={['#0F766E', '#0891B2']}
+                style={StyleSheet.absoluteFill}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+            />
+
+            <SafeAreaView>
+
+                <View className="flex justify-between flex-row mt-4 items-center" style={{ marginHorizontal: 16, paddingBottom: 20 }}>
                     <View>
                         <Text className="text-[#BDB5FF]" weight="medium">
                             Good Morning!
@@ -40,24 +47,17 @@ export default function Home() {
                         <Image source={require('@tryftai/assets/images/home/bell.svg')} style={{ width: 25, height: 25 }} />
                     </View>
                 </View>
-            </GradientBg>
-
-            <ScrollView
-                contentContainerStyle={{ paddingTop: top }}
-            >
-                <GradientBg
-                    style={{ width: '100%', }}
-                >
+                <ScrollView    >
                     <Header />
-                </GradientBg>
-                <View className=' px-4 pt-5 pb-20'>
-                    <TopExpenses />
-                    <YourTopSavings />
-                    <MonthDiff />
-                    <Score />
-                </View>
-            </ScrollView>
+                    <View className=' bg-background_light-500 px-4 pt-5 pb-20'>
+                        <TopExpenses />
+                        <YourTopSavings />
+                        <MonthDiff />
+                        <Score />
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
 
-        </>
+        </View>
     )
 }

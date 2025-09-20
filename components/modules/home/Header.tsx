@@ -5,7 +5,6 @@ import { formatPrice } from '@tryftai/helpers'
 import { Image, ImageSource } from 'expo-image'
 import { useState } from 'react'
 import { Pressable, View, ViewStyle } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type ActionCardProps = {
     icon: ImageSource
@@ -28,13 +27,12 @@ export const ActionCard: React.FC<ActionCardProps> = ({ icon, label, onPress, st
 }
 
 export function Header() {
-    const { top } = useSafeAreaInsets()
     const [showBalance, setShowBalance] = useState(true)
 
     return (
         <View
             className="gap-8 px-4"
-            style={{ paddingTop: top + 20, paddingBottom: 40 }}
+            style={{ paddingBottom: 40 }}
         >
 
             {/* Balance */}
@@ -47,7 +45,7 @@ export function Header() {
                         <Feather name={showBalance ? "eye" : "eye-off"} size={18} color="#BDB5FF" />
                     </Pressable>
                 </View>
-                <Text className="text-white text-5xl mt-3" weight="bold">
+                <Text className="text-white !text-5xl mt-3" weight="bold">
                     {showBalance ? formatPrice(121765) : '*****'}
                 </Text>
             </View>
