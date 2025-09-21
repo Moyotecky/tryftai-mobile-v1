@@ -3,7 +3,6 @@ import { Text } from "@tryftai/components/atoms";
 import { useRouter } from "expo-router";
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 type BackHeaderProps = {
     title: string;
@@ -35,7 +34,7 @@ export const BackHeader: React.FC<BackHeaderProps> = ({
     };
 
     return (
-        <SafeAreaView edges={["top"]} className={`bg-inherit ${containerClassName}`}>
+        <View className={`bg-inherit ${containerClassName}`}>
             <View className="flex-row items-center justify-between px-4 py-3">
                 <TouchableOpacity onPress={handleBack} className={iconClassName}>
                     <Ionicons name="chevron-back" size={24} color={backIconColor} />
@@ -47,6 +46,6 @@ export const BackHeader: React.FC<BackHeaderProps> = ({
 
                 <View className="pl-4">{headerRight ?? <View className="w-6" />}</View>
             </View>
-        </SafeAreaView>
+        </View>
     );
 };

@@ -2,9 +2,9 @@
 
 import { Text } from '@tryftai/components/atoms'
 import { Header, MonthDiff, Score, TopExpenses, YourTopSavings } from '@tryftai/components/modules/home'
+import { GradientBg } from '@tryftai/components/molecules/gradient-bg'
 import { Image } from 'expo-image'
-import { LinearGradient } from 'expo-linear-gradient'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 
@@ -13,12 +13,8 @@ export default function Home() {
     return (
         <View className='flex-1'>
 
-            <LinearGradient
-                colors={['#0F766E', '#0891B2']}
-                style={StyleSheet.absoluteFill}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-            />
+
+            <GradientBg />
 
             <SafeAreaView>
 
