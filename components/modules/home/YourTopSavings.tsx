@@ -4,6 +4,7 @@ import { Divider, Text } from '@tryftai/components/atoms';
 import { Card, ProgressBar } from '@tryftai/components/molecules';
 import { formatPrice } from '@tryftai/helpers';
 import { Image } from 'expo-image';
+import { router } from 'expo-router';
 import { TouchableOpacity, View } from 'react-native';
 
 
@@ -15,7 +16,7 @@ export function YourTopSavings() {
                 <Text className='text-lg' weight='semi_bold'>
                     Your Top savings
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => router.push('/home/summary')}>
                     <Text className='text-gray-500'>view all <FontAwesome6 name="arrow-right" size={12} color="#363D4E" /></Text>
                 </TouchableOpacity>
             </View>

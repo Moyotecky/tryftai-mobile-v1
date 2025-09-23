@@ -9,7 +9,20 @@
       "output": "static",
       "favicon": "./assets/icon.png"
     },
-    "plugins": ["expo-router", "expo-web-browser", "expo-font"],
+
+    "plugins": [
+      "expo-router",
+      "expo-web-browser",
+      "expo-font",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Tryft AI to access your camera",
+          "microphonePermission": "Allow Tryft AI to access your microphone",
+          "recordAudioAndroid": true
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": true,
       "tsconfigPaths": true
@@ -23,7 +36,14 @@
       "backgroundColor": "#0F766E"
     },
     "assetBundlePatterns": ["**/*"],
-    "ios": { "buildNumber": "2", "supportsTablet": true, "bundleIdentifier": "com.tryftai.v1" },
+    "ios": {
+      "buildNumber": "2",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tryftai.v1",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app requires access to your camera to scan QR codes."
+      }
+    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",

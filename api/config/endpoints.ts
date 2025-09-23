@@ -14,6 +14,7 @@ import {
   ResetUserPasswordRequest,
   ResetUserPasswordResponse,
 } from '../contracts/auth/reset-user-account-password.contract';
+import { GetDashboardSummaryResponse } from '../contracts/home/get-dashboard-data.contract';
 
 export type Url = string | ((...args: any[]) => string);
 
@@ -89,6 +90,16 @@ export const endpoints = {
     change: {
       method: 'post',
       url: '/pin/change',
+    },
+  },
+
+  // home summary
+  dashboardData: {
+    getDashboadData: {
+      method: 'get',
+      url: '/dashboard/data',
+      request: undefined,
+      response: {} as GetDashboardSummaryResponse,
     },
   },
 } as const;

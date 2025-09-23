@@ -1,53 +1,60 @@
-
-
-import { Text } from '@tryftai/components/atoms'
-import { Header, MonthDiff, Score, TopExpenses, YourTopSavings } from '@tryftai/components/modules/home'
-import { Image } from 'expo-image'
-import { LinearGradient } from 'expo-linear-gradient'
-import { ScrollView, StyleSheet, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-
+import { Text } from '@tryftai/components/atoms';
+import {
+    Header,
+    MonthDiff,
+    Score,
+    TopExpenses,
+    YourTopSavings,
+} from '@tryftai/components/modules/home';
+import { GradientBg } from '@tryftai/components/molecules/gradient-bg';
+import { Image } from 'expo-image';
+import { router } from 'expo-router';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Home() {
-
-    return (
-        <View className='flex-1'>
-
-            <LinearGradient
-                colors={['#0F766E', '#0891B2']}
-                style={StyleSheet.absoluteFill}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
+  return (
+    <View className="flex-1">
+      <GradientBg bottomFill="#F6F7F8" />
+      <SafeAreaView>
+        <View
+          className="mt-4 flex flex-row items-center justify-between"
+          style={{ marginHorizontal: 16, paddingBottom: 20 }}>
+          <View>
+            <Text className="text-[#BDB5FF]" weight="medium">
+              Good Morning!
+            </Text>
+            <Text className="text-lg text-white" weight="bold">
+              Moyosoluwalorun Alabi 👋
+            </Text>
+          </View>
+          <View className="flex flex-row gap-4">
+            <TouchableOpacity onPress={() => router.push('/qr-code/scan-qr')}>
+              <Image
+                source={require('@tryftai/assets/images/home/scan.svg')}
+                style={{ width: 25, height: 25 }}
+              />
+            </TouchableOpacity>
+            <Image
+              source={require('@tryftai/assets/images/home/robot.svg')}
+              style={{ width: 25, height: 25 }}
             />
-
-            <SafeAreaView>
-
-                <View className="flex justify-between flex-row mt-4 items-center" style={{ marginHorizontal: 16, paddingBottom: 20 }}>
-                    <View>
-                        <Text className="text-[#BDB5FF]" weight="medium">
-                            Good Morning!
-                        </Text>
-                        <Text className="text-white text-lg" weight="bold">
-                            Moyosoluwalorun Alabi 👋
-                        </Text>
-                    </View>
-                    <View className="flex flex-row gap-4">
-                        <Image source={require('@tryftai/assets/images/home/scan.svg')} style={{ width: 25, height: 25 }} />
-                        <Image source={require('@tryftai/assets/images/home/robot.svg')} style={{ width: 25, height: 25 }} />
-                        <Image source={require('@tryftai/assets/images/home/bell.svg')} style={{ width: 25, height: 25 }} />
-                    </View>
-                </View>
-                <ScrollView    >
-                    <Header />
-                    <View className=' bg-background_light-500 px-4 pt-5 pb-20'>
-                        <TopExpenses />
-                        <YourTopSavings />
-                        <MonthDiff />
-                        <Score />
-                    </View>
-                </ScrollView>
-            </SafeAreaView>
-
+            <Image
+              source={require('@tryftai/assets/images/home/bell.svg')}
+              style={{ width: 25, height: 25 }}
+            />
+          </View>
         </View>
-    )
+        <ScrollView>
+          <Header />
+          <View className=" bg-background_light-500 px-4 pb-20 pt-5">
+            <TopExpenses />
+            <YourTopSavings />
+            <MonthDiff />
+            <Score />
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
+  );
 }
