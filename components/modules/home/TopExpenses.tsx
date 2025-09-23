@@ -1,5 +1,5 @@
-
-import { Card, ProgressBar, Text } from '@tryftai/components';
+import { Text } from '@tryftai/components/atoms';
+import { Card, ProgressBar } from '@tryftai/components/molecules';
 import { formatPrice } from '@tryftai/helpers';
 import { Image } from 'expo-image';
 import { ScrollView, View } from 'react-native';
@@ -48,10 +48,10 @@ const expenseCategories: ExpenseCategory[] = [
 
 export function TopExpenses() {
     return (
-        <View>
+        <View className=''>
             <Text weight='bold' className='text-3xl'>Top expenses</Text>
 
-            <ScrollView horizontal contentContainerClassName='py-4 gap-8 mt-4'>
+            <ScrollView horizontal contentContainerClassName='py-4 gap-8 mt-4 pl-1'>
                 {
                     expenseCategories.map(expenseCategory => (<Card key={expenseCategory.category} style={{ width: 300 }}>
 
@@ -67,18 +67,20 @@ export function TopExpenses() {
                         <Text className='text-2xl' weight='semi_bold'>
                             {expenseCategory.category}
                         </Text>
-                        <Text className='text-gray-600 mt-8 ' weight='semi_bold'>
+
+                        <Text className='text-gray-600 text-lg mt-8 ' weight='semi_bold'>
                             SPENT
                         </Text>
                         <View className='flex-row items-end gap-2'>
-                            <Text className='text-2xl -mb-6' weight='semi_bold'>
+                            <Text className='text-2xl' weight='semi_bold'>
                                 {formatPrice(expenseCategory.amountSpent)}
                             </Text>
 
-                            <Text className='text-gray'>
+                            <Text className='text-gray mb-1.5'>
                                 out of {formatPrice(expenseCategory.budget)}
                             </Text>
                         </View>
+
                         <ProgressBar progress={expenseCategory.amountSpent / expenseCategory.budget} className='mt-4' />
                     </Card>))
                 }

@@ -1,6 +1,7 @@
 
 import { Ionicons } from "@expo/vector-icons";
-import { Card, Divider, Text } from '@tryftai/components';
+import { Divider, Text } from "@tryftai/components/atoms";
+import { Card } from "@tryftai/components/molecules";
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
@@ -41,8 +42,8 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({ transaction })
     const isExpense = transaction.amount < 0;
 
     return (
-        <View className="w-full bg-white items-center p-4 gap-4 flex-row">
-            <View className="w-10 h-10 rounded-full bg-gray-200 mr-3" />
+        <View className="w-full bg-white items-center py-4 pr-2 gap-4 flex-row">
+            <View className="w-10 h-10 rounded-full bg-gray-200" />
 
             <View style={{ width: '90%' }}>
                 <View className="flex-row items-center justify-between">
@@ -68,7 +69,7 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({ transaction })
 };
 export function MonthDiff() {
     return (
-        <View className='mt-10 bg-gray-400'>
+        <View className='mt-10'>
 
             <Text className='text-3xl' weight='bold'>
                 This month

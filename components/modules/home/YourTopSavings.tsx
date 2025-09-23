@@ -1,6 +1,7 @@
 
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import { Card, Divider, ProgressBar, Text } from '@tryftai/components';
+import { Divider, Text } from '@tryftai/components/atoms';
+import { Card, ProgressBar } from '@tryftai/components/molecules';
 import { formatPrice } from '@tryftai/helpers';
 import { Image } from 'expo-image';
 import { TouchableOpacity, View } from 'react-native';

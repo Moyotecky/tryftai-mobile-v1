@@ -1,12 +1,10 @@
 // Header.tsx
 import Feather from '@expo/vector-icons/Feather'
-import { Divider, Text } from '@tryftai/components'
+import { Divider, Text } from '@tryftai/components/atoms'
 import { formatPrice } from '@tryftai/helpers'
 import { Image, ImageSource } from 'expo-image'
 import { useState } from 'react'
 import { Pressable, View, ViewStyle } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-
 
 type ActionCardProps = {
     icon: ImageSource
@@ -29,14 +27,14 @@ export const ActionCard: React.FC<ActionCardProps> = ({ icon, label, onPress, st
 }
 
 export function Header() {
-    const { top } = useSafeAreaInsets()
     const [showBalance, setShowBalance] = useState(true)
 
     return (
         <View
-            className="gap-8 mt-5"
-            style={{ height: 375 - top - 20 }}
+            className="gap-8 px-4"
+            style={{ paddingBottom: 40 }}
         >
+
             {/* Balance */}
             <View>
                 <View className="flex flex-row items-center gap-2">
@@ -47,7 +45,7 @@ export function Header() {
                         <Feather name={showBalance ? "eye" : "eye-off"} size={18} color="#BDB5FF" />
                     </Pressable>
                 </View>
-                <Text className="text-white text-5xl mt-3" weight="bold">
+                <Text className="text-white !text-5xl mt-3" weight="bold">
                     {showBalance ? formatPrice(121765) : '*****'}
                 </Text>
             </View>
@@ -72,6 +70,7 @@ export function Header() {
                     />
                 </View>
             </View>
+
         </View>
     )
 }
