@@ -4,7 +4,8 @@ import { Text } from '@tryftai/components/atoms'
 import { Header, MonthDiff, Score, TopExpenses, YourTopSavings } from '@tryftai/components/modules/home'
 import { GradientBg } from '@tryftai/components/molecules/gradient-bg'
 import { Image } from 'expo-image'
-import { ScrollView, View } from 'react-native'
+import { router } from 'expo-router'
+import { ScrollView, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 
@@ -14,7 +15,7 @@ export default function Home() {
         <View className='flex-1'>
 
 
-            <GradientBg />
+            <GradientBg bottomFill='#F6F7F8' />
 
             <SafeAreaView>
 
@@ -28,7 +29,9 @@ export default function Home() {
                         </Text>
                     </View>
                     <View className="flex flex-row gap-4">
-                        <Image source={require('@tryftai/assets/images/home/scan.svg')} style={{ width: 25, height: 25 }} />
+                        <TouchableOpacity onPress={() => router.push('/qr-code/scan-qr')}>
+                            <Image source={require('@tryftai/assets/images/home/scan.svg')} style={{ width: 25, height: 25 }} />
+                        </TouchableOpacity>
                         <Image source={require('@tryftai/assets/images/home/robot.svg')} style={{ width: 25, height: 25 }} />
                         <Image source={require('@tryftai/assets/images/home/bell.svg')} style={{ width: 25, height: 25 }} />
                     </View>

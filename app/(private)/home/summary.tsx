@@ -9,7 +9,9 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 export default function Summary() {
     return (
         <SafeAreaView>
-            <GradientBg />
+
+
+            <GradientBg bottomFill='#F6F7F8' />
             <BackHeader
                 title='Summary'
                 containerClassName='text-white'
