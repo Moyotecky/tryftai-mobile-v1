@@ -1,6 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useUpdateAccountType } from '@tryftai/api/hooks/auth/useUpdateAccountType.hook';
 import { Button } from '@tryftai/components/atoms/button';
 import { Text } from '@tryftai/components/atoms/text';
+import { useAuthUserStore } from '@tryftai/hooks/store/useAuthUserStore';
+import { useFullScreenLoadingStore } from '@tryftai/hooks/store/useFullScreenLoadingStore';
+import { formatApiError } from '@tryftai/libs/utils/error-handler';
+import { Notify } from '@tryftai/libs/utils/toast.config';
+import { getStorageAccessToken } from '@tryftai/libs/utils/token';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
@@ -32,6 +38,7 @@ const data = [
     ],
     icon: require('@tryftai/assets/images/onboarding/1.png'),
     buttonTitle: 'Start with this',
+    accountType: 'Student',
   },
   {
     id: '2',
@@ -44,6 +51,7 @@ const data = [
     ],
     icon: require('@tryftai/assets/images/onboarding/1.png'),
     buttonTitle: 'I Prefer This',
+    accountType: 'Individual/Employer',
   },
 ];
 
@@ -51,6 +59,7 @@ type CardProps = {
   item: (typeof data)[0];
   index: number;
   scrollX: SharedValue<number>;
+  onCardPress: () => void;
 };
 
 const SPACING = 16;
@@ -58,14 +67,50 @@ const CARD_WIDTH = width * 0.8;
 const SNAP_INTERVAL = CARD_WIDTH + SPACING;
 
 const Screen = () => {
+  const { startLoading, stopLoading } = useFullScreenLoadingStore();
   const flatListRef = useRef<FlatList<any>>(null);
   const scrollX = useSharedValue(0);
+
+  const { updateUser, currentUser } = useAuthUserStore();
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
       scrollX.value = event.contentOffset.x;
     },
   });
+
+  const token = void getStorageAccessToken();
+
+  console.log('ACCESS TOKEN ====> ', token, currentUser);
+
+  const updateAccountTypeMutation = useUpdateAccountType();
+
+  const handleSelectAccountType = (accountType: 'Student' | 'Individual/Employer') => {
+    startLoading();
+    updateAccountTypeMutation.mutate(
+      { accountType },
+      {
+        onError: (err) => {
+          Notify('error', {
+            message: 'Error',
+            description: formatApiError(err),
+          });
+        },
+        onSettled: () => {
+          stopLoading();
+        },
+        onSuccess: (data) => {
+          updateUser(data);
+          router.navigate({
+            pathname: '/authentication/personal-info.screen',
+            params: {
+              accountType,
+            },
+          });
+        },
+      }
+    );
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-background_light-500">
@@ -102,7 +147,16 @@ const Screen = () => {
             ref={flatListRef}
             data={data}
             className="flex-1"
-            renderItem={({ item, index }) => <Card item={item} index={index} scrollX={scrollX} />}
+            renderItem={({ item, index }) => (
+              <Card
+                item={item}
+                index={index}
+                scrollX={scrollX}
+                onCardPress={() => {
+                  handleSelectAccountType(item?.accountType);
+                }}
+              />
+            )}
             keyExtractor={(item) => item.id}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -139,7 +193,7 @@ const Screen = () => {
 
 export default Screen;
 
-const Card = memo(({ item, index, scrollX }: CardProps) => {
+const Card = memo(({ item, index, scrollX, onCardPress }: CardProps) => {
   const style = useAnimatedStyle(() => {
     const progress = scrollX.value / SNAP_INTERVAL;
 
@@ -191,10 +245,7 @@ const Card = memo(({ item, index, scrollX }: CardProps) => {
           </View>
         </View>
         <View className="mt-4 w-full">
-          <Button
-            title={item?.buttonTitle}
-            onPress={() => router.navigate('/authentication/personal-info.screen')}
-          />
+          <Button title={item?.buttonTitle} onPress={onCardPress} />
         </View>
       </View>
     </Animated.View>

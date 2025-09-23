@@ -1,9 +1,16 @@
 // contracts/user.ts
 import { z } from 'zod';
 
+export const VirtualAccountSchema = z.object({
+  accountNumber: z.string(),
+  accountName: z.string(),
+  bankName: z.string(),
+});
+
 export const UserSchema = z.object({
   email: z.email(),
   emailVerified: z.boolean(),
+  accountType: z.string(),
   hasPin: z.boolean(),
   failedPinAttempts: z.number(),
   monthlyIncome: z.number(),
@@ -21,6 +28,7 @@ export const UserSchema = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   __v: z.number(),
+  virtualAccount: VirtualAccountSchema,
 });
 
 export type User = z.infer<typeof UserSchema>;

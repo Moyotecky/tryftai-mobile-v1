@@ -47,17 +47,21 @@ const Screen = () => {
   const handleSubmit = form.handleSubmit((values) => {
     forgotUserPasswordMutation.mutate(values, {
       onSuccess: (data) => {
-        console.log('user login successful', data);
+        Notify('success', {
+          message: 'Success',
+          description: data?.message,
+        });
         // navigate to verify-email
         router.navigate({
           pathname: '/authentication/verify-email.screen',
           params: {
-            email: 'test@yopmail.com',
+            email: form?.getValues()?.email,
             type: 'forgot-password',
           },
         });
       },
       onError: (err) => {
+        console.log(JSON.stringify(err));
         Notify('error', {
           message: 'Error',
           description: formatApiError(err),

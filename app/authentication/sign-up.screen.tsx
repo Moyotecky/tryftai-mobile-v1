@@ -133,16 +133,7 @@ const Screen = () => {
             </View>
             <Button
               title="continue"
-              // onPress={handleSubmit}
-              onPress={() =>
-                router.navigate({
-                  pathname: '/authentication/verify-email.screen',
-                  params: {
-                    email: 'example@gmail.com',
-                    type: 'create-account',
-                  },
-                })
-              }
+              onPress={handleSubmit}
               isLoading={registerUserAccountMutation.isPending}
             />
           </View>

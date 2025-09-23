@@ -37,7 +37,6 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "2",
       "supportsTablet": true,
       "bundleIdentifier": "com.tryftai.v1",
       "infoPlist": {

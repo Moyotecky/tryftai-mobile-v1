@@ -10,10 +10,20 @@ import {
   RegisterUserEmailRequest,
   RegisterUserEmailResponse,
 } from '../contracts/auth/register-user-account.contract';
+import { ResendOtpRequest, ResendOtpResponse } from '../contracts/auth/resend-otp.contract';
 import {
   ResetUserPasswordRequest,
   ResetUserPasswordResponse,
 } from '../contracts/auth/reset-user-account-password.contract';
+import {
+  UpdateAccountTypeRequest,
+  UpdateAccountTypeResponse,
+} from '../contracts/auth/update-account-type.contract';
+import {
+  UpdateProfileRequest,
+  UpdateProfileResponse,
+} from '../contracts/auth/update-profile.contract';
+import { VerifyOtpRequest, VerifyOtpResponse } from '../contracts/auth/verify-otp.contract';
 import { GetDashboardSummaryResponse } from '../contracts/home/get-dashboard-data.contract';
 
 export type Url = string | ((...args: any[]) => string);
@@ -52,6 +62,30 @@ export const endpoints = {
       request: {} as ResetUserPasswordRequest,
       response: {} as ResetUserPasswordResponse,
     } satisfies EndpointDef<ResetUserPasswordRequest, ResetUserPasswordResponse>,
+    verifyOtp: {
+      method: 'post',
+      url: '/auth/verify-otp',
+      request: {} as VerifyOtpRequest,
+      response: {} as VerifyOtpResponse,
+    } satisfies EndpointDef<VerifyOtpRequest, VerifyOtpResponse>,
+    updateAccountType: {
+      method: 'post',
+      url: '/auth/update-account-type',
+      request: {} as UpdateAccountTypeRequest,
+      response: {} as UpdateAccountTypeResponse,
+    } satisfies EndpointDef<UpdateAccountTypeRequest, UpdateAccountTypeResponse>,
+    updateProfile: {
+      method: 'post',
+      url: '/auth/update-profile',
+      request: {} as UpdateProfileRequest,
+      response: {} as UpdateProfileResponse,
+    } satisfies EndpointDef<UpdateProfileRequest, UpdateProfileResponse>,
+    resendOtp: {
+      method: 'post',
+      url: '/auth/resend-otp',
+      request: {} as ResendOtpRequest,
+      response: {} as ResendOtpResponse,
+    } satisfies EndpointDef<ResendOtpRequest, ResendOtpResponse>,
   },
 
   // users
