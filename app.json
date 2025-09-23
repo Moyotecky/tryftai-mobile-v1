@@ -9,11 +9,7 @@
       "output": "static",
       "favicon": "./assets/icon.png"
     },
-    "plugins": [
-      "expo-router",
-      "expo-web-browser",
-      "expo-font"
-    ],
+    "plugins": ["expo-router", "expo-web-browser", "expo-font"],
     "experiments": {
       "typedRoutes": true,
       "tsconfigPaths": true
@@ -26,13 +22,8 @@
       "resizeMode": "cover",
       "backgroundColor": "#0F766E"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.tryftai.v1"
-    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": { "buildNumber": "2", "supportsTablet": true, "bundleIdentifier": "com.tryftai.v1" },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
