@@ -6,7 +6,7 @@ import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { TouchableOpacity, View } from 'react-native';
 
-export function YourTopSavings() {
+export const YourTopSavings = () => {
   return (
     <Card className="mt-4">
       <View className="flex-row items-center justify-between">
@@ -66,4 +66,4 @@ export function YourTopSavings() {
       </View>
     </Card>
   );
-}
+};

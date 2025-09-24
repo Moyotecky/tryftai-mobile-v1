@@ -66,9 +66,9 @@ const Sheet = React.forwardRef<
   }
 );
 
-function useSheetRef() {
+const useSheetRef = () => {
   return React.useRef<BottomSheetModal>(null);
-}
+};
 
 export { Sheet, useSheetRef };
 

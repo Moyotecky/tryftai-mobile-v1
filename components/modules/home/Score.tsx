@@ -1,8 +1,8 @@
 import { Button, Text } from '@tryftai/components/atoms';
 import { Card } from '@tryftai/components/molecules';
-import CreditScore from './Arc';
+import { CreditScore } from './Arc';
 
-const Score = () => {
+export const Score = () => {
   return (
     <Card className="mt-10">
       <Text className="mt-5 text-center text-xl text-primary-500" weight="semi_bold">
@@ -25,5 +25,3 @@ const Score = () => {
     </Card>
   );
 };
-
-export { Score };

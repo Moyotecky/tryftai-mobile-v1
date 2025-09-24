@@ -24,7 +24,7 @@ import { useAppDispatch, useAppSelector } from './store';
  * const { isLoading, startLoading, stopLoading } = useFullScreenLoadingStore();
  * ```
  */
-export function useFullScreenLoadingStore() {
+export const useFullScreenLoadingStore = () => {
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((state) => state.loading.isLoading);
 
@@ -33,4 +33,4 @@ export function useFullScreenLoadingStore() {
     startLoading: () => dispatch(startLoading()),
     stopLoading: () => dispatch(stopLoading()),
   };
-}
+};

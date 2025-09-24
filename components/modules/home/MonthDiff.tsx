@@ -64,7 +64,7 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({ transaction })
     </View>
   );
 };
-export function MonthDiff() {
+export const MonthDiff = () => {
   return (
     <View className="mt-10">
       <Text className="text-3xl" weight="bold">
@@ -96,4 +96,4 @@ export function MonthDiff() {
       </Card>
     </View>
   );
-}
+};

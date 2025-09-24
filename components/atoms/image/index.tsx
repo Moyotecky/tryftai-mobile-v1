@@ -9,13 +9,13 @@ export const Image: React.FC<IIMageProps> = React.memo((props) => {
   const [isLoading, setLoading] = useState(true);
   const [imageUri, setImageUri] = useState('https://source.unsplash.com/random/3840x2160/?cars');
 
-  function onLoadStart() {
+  const onLoadStart = () => {
     setLoading(true);
-  }
+  };
 
-  function onLoadEnd() {
+  const onLoadEnd = () => {
     setLoading(false);
-  }
+  };
 
   return (
     <ExpoImage

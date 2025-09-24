@@ -1,7 +1,7 @@
 import { TabBarIcon } from '@tryftai/components/molecules/tabbar-icon';
 import { Tabs } from 'expo-router';
 
-export default function TabLayout() {
+const TabLayout = () => {
   return (
     <Tabs
       screenOptions={{
@@ -25,4 +25,6 @@ export default function TabLayout() {
       />
     </Tabs>
   );
-}
+};
+
+export default TabLayout;

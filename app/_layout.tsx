@@ -13,7 +13,7 @@ export const unstable_settings = {
   initialRouteName: '(check-update)/index',
 };
 
-export default function RootLayout() {
+const RootLayout = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [loaded] = useFonts({
@@ -73,4 +73,6 @@ export default function RootLayout() {
       </Stack>
     </Providers>
   );
-}
+};
+
+export default RootLayout;

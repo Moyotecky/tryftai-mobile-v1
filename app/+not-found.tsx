@@ -4,7 +4,7 @@ import { router, Stack } from 'expo-router';
 
 import { Text, View } from 'react-native';
 
-export default function NotFoundScreen() {
+const NotFoundScreen = () => {
   return (
     <Container>
       <Stack.Screen options={{ title: 'Oops!' }} />
@@ -14,7 +14,9 @@ export default function NotFoundScreen() {
       </View>
     </Container>
   );
-}
+};
+
+export default NotFoundScreen;
 
 const styles = {
   container: `items-center flex-1 justify-center p-5`,

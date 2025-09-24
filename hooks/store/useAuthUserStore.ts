@@ -30,7 +30,7 @@ import { useAppDispatch, useAppSelector } from './store';
  * logoutUser();
  * ```
  */
-export function useAuthUserStore() {
+export const useAuthUserStore = () => {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.user);
 
@@ -42,4 +42,4 @@ export function useAuthUserStore() {
     updateUser: (user: Partial<User>) => dispatch(updateUser(user)),
     updateAccessToken: (token: string) => dispatch(updateAccessToken(token)),
   };
-}
+};

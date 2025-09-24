@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function NgnAccountDetails() {
+const Screen = () => {
   const [copied, setCopied] = useState<string | null>(null);
 
   const copyToClipboard = async (text: string, label: string) => {
@@ -86,4 +86,6 @@ export default function NgnAccountDetails() {
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
+
+export default Screen;

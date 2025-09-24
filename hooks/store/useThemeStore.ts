@@ -21,7 +21,7 @@ import { useAppDispatch, useAppSelector } from './store';
  * const { mode, toggleTheme, reset } = useThemeStore();
  * ```
  */
-export function useThemeStore() {
+export const useThemeStore = () => {
   const dispatch = useAppDispatch();
   const mode = useAppSelector((state) => state.theme.mode);
 
@@ -30,4 +30,4 @@ export function useThemeStore() {
     toggleTheme: () => dispatch(toggleTheme()),
     reset: () => dispatch(resetTheme()),
   };
-}
+};

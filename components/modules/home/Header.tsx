@@ -26,7 +26,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({ icon, label, onPress, st
   );
 };
 
-export function Header() {
+export const Header = () => {
   const [showBalance, setShowBalance] = useState(true);
 
   return (
@@ -59,4 +59,4 @@ export function Header() {
       </View>
     </View>
   );
-}
+};

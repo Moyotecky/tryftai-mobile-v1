@@ -21,7 +21,7 @@ import { useAppDispatch, useAppSelector } from './store';
  * const { viewedOnboarding, completeOnboarding } = useOnboarding();
  * ```
  */
-export function useOnboarding() {
+export const useOnboarding = () => {
   const dispatch = useAppDispatch();
   const viewedOnboarding = useAppSelector((state) => state.onboarding.viewedOnboarding);
 
@@ -30,4 +30,4 @@ export function useOnboarding() {
     completeOnboarding: () => dispatch(setViewedOnboarding()),
     reset: () => dispatch(resetOnboarding()),
   };
-}
+};

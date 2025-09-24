@@ -43,7 +43,7 @@ const expenseCategories: ExpenseCategory[] = [
   },
 ];
 
-export function TopExpenses() {
+export const TopExpenses = () => {
   return (
     <View className="">
       <Text weight="bold" className="text-3xl">
@@ -85,4 +85,4 @@ export function TopExpenses() {
       </ScrollView>
     </View>
   );
-}
+};

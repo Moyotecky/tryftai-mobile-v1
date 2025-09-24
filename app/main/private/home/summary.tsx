@@ -6,7 +6,7 @@ import { GradientBg } from '@tryftai/components/molecules/gradient-bg';
 import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function Summary() {
+const Screen = () => {
   return (
     <SafeAreaView>
       <GradientBg bottomFill="#F6F7F8" />
@@ -35,4 +35,6 @@ export default function Summary() {
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
+
+export default Screen;
