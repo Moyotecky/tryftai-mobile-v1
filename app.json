@@ -9,7 +9,6 @@
       "output": "static",
       "favicon": "./assets/icon.png"
     },
-
     "plugins": [
       "expo-router",
       "expo-web-browser",
@@ -52,13 +51,25 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.tryftai.v1"
+      "package": "com.tryftai.v1",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "extra": {
       "router": {},
       "eas": {
         "projectId": "9be87427-74cb-4ed0-9b3b-bb592455a65d"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/9be87427-74cb-4ed0-9b3b-bb592455a65d"
     }
   }
 }

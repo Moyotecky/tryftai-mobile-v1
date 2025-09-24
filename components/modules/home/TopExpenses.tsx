@@ -50,7 +50,10 @@ export function TopExpenses() {
         Top expenses
       </Text>
 
-      <ScrollView horizontal contentContainerClassName="py-4 gap-8 mt-4 pl-1">
+      <ScrollView
+        horizontal
+        contentContainerClassName="py-4 gap-8 mt-4 pl-1"
+        showsHorizontalScrollIndicator={false}>
         {expenseCategories.map((expenseCategory) => (
           <Card key={expenseCategory.category} style={{ width: 300 }}>
             <View

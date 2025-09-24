@@ -1,0 +1,14 @@
+name: OTA Update IOS - [staging]
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  publish_update:
+    type: update
+    params:
+      message:
+      platform: ios
+      branch: staging

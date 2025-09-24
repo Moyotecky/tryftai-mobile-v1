@@ -45,7 +45,10 @@ export default function Home() {
             />
           </View>
         </View>
-        <ScrollView>
+        <ScrollView
+          contentContainerClassName="flex-grow"
+          className="flex-1"
+          showsVerticalScrollIndicator={false}>
           <Header />
           <View className=" bg-background_light-500 px-4 pb-20 pt-5">
             <TopExpenses />
