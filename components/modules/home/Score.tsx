@@ -4,7 +4,7 @@ import CreditScore from './Arc';
 
 const Score = () => {
   return (
-    <Card className="% mt-10">
+    <Card className="mt-10">
       <Text className="mt-5 text-center text-xl text-primary-500" weight="semi_bold">
         My Score
       </Text>

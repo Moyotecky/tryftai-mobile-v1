@@ -8,15 +8,15 @@ type GradientBgProps = {
 
 export const GradientBg: React.FC<GradientBgProps> = ({ bottomFill }) => {
   return (
-    <View style={StyleSheet.absoluteFill}>
+    <View style={[StyleSheet.absoluteFill, { flex: 1 }]}>
       <LinearGradient
         colors={['#0F766E', '#0891B2']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
-        style={{ flex: bottomFill ? 0.6 : 1 }}
+        style={{ flex: bottomFill ? 0.7 : 1 }}
       />
 
-      {bottomFill && <View style={{ flex: 0.4, backgroundColor: bottomFill }} />}
+      {bottomFill && <View style={{ flex: 0.3, backgroundColor: bottomFill }} />}
     </View>
   );
 };

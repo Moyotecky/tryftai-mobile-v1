@@ -214,7 +214,7 @@ const Screen = () => {
               title="I'm ready to start"
               onPress={() => {
                 setIsProfileCreatedSuccessfulModalOpen(false);
-                router.replace('/home');
+                router.replace('/main/tab/home/home.screen');
               }}
             />
           </View>

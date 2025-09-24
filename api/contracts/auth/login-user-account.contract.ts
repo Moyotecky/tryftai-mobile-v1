@@ -10,7 +10,8 @@ export type LoginUserEmailRequest = z.infer<typeof LoginUserEmailRequestSchema>;
 
 export const LoginUserEmailResponseSchema = z.object({
   message: z.string(),
-  user: UserSchema,
+  accessToken: z.string(),
+  user: UserSchema?.nullable(),
 });
 
 export type LoginUserEmailResponse = z.infer<typeof LoginUserEmailResponseSchema>;

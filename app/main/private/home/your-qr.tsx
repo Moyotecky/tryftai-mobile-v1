@@ -10,7 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import QRCode from 'react-qr-code';
 
-export default function YourQR() {
+const Screen = () => {
   return (
     <SafeAreaView className=" flex-1">
       <GradientBg />
@@ -53,4 +53,6 @@ export default function YourQR() {
       </View>
     </SafeAreaView>
   );
-}
+};
+
+export default Screen;

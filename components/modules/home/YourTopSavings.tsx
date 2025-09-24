@@ -13,7 +13,7 @@ export function YourTopSavings() {
         <Text className="text-lg" weight="semi_bold">
           Your Top savings
         </Text>
-        <TouchableOpacity onPress={() => router.push('/home/summary')}>
+        <TouchableOpacity onPress={() => router.push('/main/private/home/summary')}>
           <Text className="text-gray-500">
             view all <FontAwesome6 name="arrow-right" size={12} color="#363D4E" />
           </Text>

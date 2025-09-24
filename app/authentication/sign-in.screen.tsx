@@ -38,7 +38,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Screen = () => {
   const loginUserMutation = useLoginUserAccount();
-  const { updateUser } = useAuthUserStore();
+  const { updateUser, updateAccessToken } = useAuthUserStore();
 
   const form = useForm<LoginUserEmailRequest>({
     mode: 'onBlur',
@@ -50,8 +50,13 @@ const Screen = () => {
     loginUserMutation.mutate(values, {
       onSuccess: (data) => {
         console.log('user login successful', data);
-        updateUser(data?.user);
-        router.navigate('/(private)/home');
+        if (data?.accessToken) {
+          updateAccessToken(data?.accessToken);
+        }
+        if (data?.user) {
+          updateUser(data?.user);
+        }
+        router.navigate('/main/tab/home/home.screen');
       },
       onError: (err) => {
         Notify('error', {

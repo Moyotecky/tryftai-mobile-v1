@@ -36,6 +36,8 @@ export function useAuthUserStore() {
 
   return {
     currentUser: currentUser?.user,
+    accessToken: currentUser.accessToken,
+    isLoggedIn: !!currentUser.accessToken,
     logoutUser: () => dispatch(logoutUser()),
     updateUser: (user: Partial<User>) => dispatch(updateUser(user)),
     updateAccessToken: (token: string) => dispatch(updateAccessToken(token)),
