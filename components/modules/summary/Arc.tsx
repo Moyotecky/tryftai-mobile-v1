@@ -1,7 +1,7 @@
-import { Text } from "@tryftai/components/atoms";
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import Svg, { Defs, LinearGradient, Path, Stop } from "react-native-svg";
+import { Text } from '@tryftai/components/atoms';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import Svg, { Defs, LinearGradient, Path, Stop } from 'react-native-svg';
 
 type BudgetGaugeProps = {
   value: number;
@@ -35,10 +35,7 @@ export const BudgetGauge: React.FC<BudgetGaugeProps> = ({ value, max }) => {
 
   return (
     <View style={styles.container}>
-      <Svg
-        width={radius * 2 + strokeWidth * 2}
-        height={radius + strokeWidth * 2}
-      >
+      <Svg width={radius * 2 + strokeWidth * 2} height={radius + strokeWidth * 2}>
         <Defs>
           <LinearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
             <Stop offset="0" stopColor="#10B981" />
@@ -69,7 +66,9 @@ export const BudgetGauge: React.FC<BudgetGaugeProps> = ({ value, max }) => {
       </Svg>
 
       <View style={styles.labelContainer}>
-        <Text weight="bold" style={styles.value}>₦{value.toLocaleString()}</Text>
+        <Text weight="bold" style={styles.value}>
+          ₦{value.toLocaleString()}
+        </Text>
         <Text style={styles.subtext}>left of ₦{max.toLocaleString()} budget</Text>
       </View>
     </View>
@@ -78,21 +77,21 @@ export const BudgetGauge: React.FC<BudgetGaugeProps> = ({ value, max }) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   labelContainer: {
-    position: "absolute",
-    top: "50%",
-    alignItems: "center",
+    position: 'absolute',
+    top: '50%',
+    alignItems: 'center',
   },
   value: {
     fontSize: 40,
-    fontWeight: "800",
-    color: "#111827",
+    fontWeight: '800',
+    color: '#111827',
   },
   subtext: {
     fontSize: 14,
-    color: "#4B5563",
+    color: '#4B5563',
   },
 });

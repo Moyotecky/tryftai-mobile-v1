@@ -102,7 +102,7 @@ const Screen = () => {
   }, [onFetchUpdateAsync]);
 
   return (
-    <View className="bg-primary-500 flex-1">
+    <View className="flex-1 bg-primary-500">
       <ImageBackground
         source={require('@tryftai/assets/images/onboarding/check-update-bg.png')}
         style={{ flex: 1 }}>

@@ -17,43 +17,43 @@
  * Created: Sept 2025
  */
 
-import React from "react";
-import { DimensionValue, View } from "react-native";
+import React from 'react';
+import { DimensionValue, View } from 'react-native';
 
 type DividerProps = {
-    orientation?: "horizontal" | "vertical";
-    thickness?: number;
-    color?: string; // Tailwind class or HEX
-    length?: DimensionValue; // accepts number or percentage string
-    className?: string;
+  orientation?: 'horizontal' | 'vertical';
+  thickness?: number;
+  color?: string; // Tailwind class or HEX
+  length?: DimensionValue; // accepts number or percentage string
+  className?: string;
 };
 
 export const Divider: React.FC<DividerProps> = ({
-    orientation = "horizontal",
-    thickness = 1,
-    color = "bg-gray-300",
-    length,
-    className
+  orientation = 'horizontal',
+  thickness = 1,
+  color = 'bg-gray-300',
+  length,
+  className,
 }) => {
-    if (orientation === "vertical") {
-        return (
-            <View
-                className={`${color} ${className}`}
-                style={{
-                    width: thickness,
-                    height: length ?? "100%" as DimensionValue,
-                }}
-            />
-        );
-    }
-
+  if (orientation === 'vertical') {
     return (
-        <View
-            className={`${color} ${className}`}
-            style={{
-                height: thickness,
-                width: length ?? "100%" as DimensionValue,
-            }}
-        />
+      <View
+        className={`${color} ${className}`}
+        style={{
+          width: thickness,
+          height: length ?? ('100%' as DimensionValue),
+        }}
+      />
     );
+  }
+
+  return (
+    <View
+      className={`${color} ${className}`}
+      style={{
+        height: thickness,
+        width: length ?? ('100%' as DimensionValue),
+      }}
+    />
+  );
 };

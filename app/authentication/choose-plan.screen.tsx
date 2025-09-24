@@ -252,6 +252,8 @@ const Card = memo(({ item, index, scrollX, onCardPress }: CardProps) => {
   );
 });
 
+Card.displayName = 'Card';
+
 const Dot = ({ index, scrollX }: { index: number; scrollX: SharedValue<number> }) => {
   const animatedStyle = useAnimatedStyle(() => {
     const inputRange = [

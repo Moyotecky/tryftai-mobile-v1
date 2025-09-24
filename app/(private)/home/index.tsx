@@ -1,10 +1,10 @@
 import { Text } from '@tryftai/components/atoms';
 import {
-    Header,
-    MonthDiff,
-    Score,
-    TopExpenses,
-    YourTopSavings,
+  Header,
+  MonthDiff,
+  Score,
+  TopExpenses,
+  YourTopSavings,
 } from '@tryftai/components/modules/home';
 import { GradientBg } from '@tryftai/components/molecules/gradient-bg';
 import { Image } from 'expo-image';

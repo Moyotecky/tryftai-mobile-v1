@@ -20,4 +20,3 @@ export * from './container';
 export * from './full-screen-loader';
 export * from './progress-bar';
 export * from './tabbar-icon';
-
