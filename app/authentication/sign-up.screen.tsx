@@ -18,15 +18,53 @@
  */
 
 import { Ionicons } from '@expo/vector-icons';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  RegisterUserEmailRequest,
+  RegisterUserEmailRequestSchema,
+} from '@tryftai/api/contracts/auth/register-user-account.contract';
+import { useRegisterUserAccount } from '@tryftai/api/hooks/auth/useRegisterUser.hook';
 import { Button } from '@tryftai/components/atoms/button';
-import { Input } from '@tryftai/components/atoms/input';
+import { FormInput } from '@tryftai/components/atoms/input/form-input';
 import { Text } from '@tryftai/components/atoms/text';
+import { formatApiError } from '@tryftai/libs/utils/error-handler';
+import { Notify } from '@tryftai/libs/utils/toast.config';
 import { router } from 'expo-router';
+import { useForm } from 'react-hook-form';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Screen = () => {
+  const registerUserAccountMutation = useRegisterUserAccount();
+
+  const form = useForm<RegisterUserEmailRequest>({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+    resolver: zodResolver(RegisterUserEmailRequestSchema),
+  });
+
+  const handleSubmit = form.handleSubmit((values) => {
+    registerUserAccountMutation.mutate(values, {
+      onSuccess: (data) => {
+        console.log('user registration successful', data);
+        router.navigate({
+          pathname: '/authentication/verify-email.screen',
+          params: {
+            email: data?.user?.email,
+            type: 'create-account',
+          },
+        });
+      },
+      onError: (err) => {
+        Notify('error', {
+          message: 'Error',
+          description: formatApiError(err),
+        });
+      },
+    });
+  });
+
   return (
     <SafeAreaView className="flex-1 bg-background_light-500">
       <View className="ml-4 items-start pr-2">
@@ -57,7 +95,17 @@ const Screen = () => {
             </Text>
           </View>
           <View className="mt-5 flex-1 gap-3">
-            <Input label="Email Address" />
+            <FormInput
+              label="Email Address"
+              name="email"
+              control={form.control}
+              error={form?.formState?.errors?.email?.message}
+              autoCapitalize="none"
+              autoComplete="email"
+              keyboardType="email-address"
+              returnKeyType="next"
+              textContentType="emailAddress"
+            />
           </View>
 
           <View className="gap-8 pb-8">
@@ -85,15 +133,8 @@ const Screen = () => {
             </View>
             <Button
               title="continue"
-              onPress={() => {
-                router.navigate({
-                  pathname: '/authentication/verify-email.screen',
-                  params: {
-                    email: 'test@yopmail.com',
-                    type: 'create-account',
-                  },
-                });
-              }}
+              onPress={handleSubmit}
+              isLoading={registerUserAccountMutation.isPending}
             />
           </View>
         </View>

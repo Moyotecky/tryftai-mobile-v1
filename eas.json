@@ -1,7 +1,7 @@
 {
   "cli": {
     "version": ">= 13.4.2",
-    "appVersionSource": "local"
+    "appVersionSource": "remote"
   },
   "build": {
     "development": {
@@ -23,6 +23,7 @@
       "env": {
         "APP_ENV": "staging"
       },
+      "autoIncrement": true,
       "ios": {
         "image": "macos-sequoia-15.3-xcode-16.2"
       }
@@ -32,12 +33,18 @@
       "env": {
         "APP_ENV": "production"
       },
+      "autoIncrement": true,
       "ios": {
         "image": "macos-sequoia-15.3-xcode-16.2"
       }
     }
   },
   "submit": {
-    "production": {}
+    "production": {},
+    "staging": {
+      "ios": {
+        "ascAppId": "6752670786"
+      }
+    }
   }
 }

@@ -32,3 +32,5 @@ export const Image: React.FC<IIMageProps> = React.memo((props) => {
 const styles = {
   image: `flex-1 w-full`,
 };
+
+Image.displayName = 'Image';

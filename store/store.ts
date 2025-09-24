@@ -23,11 +23,13 @@ import { persistReducer, persistStore } from 'redux-persist';
 import fullScreenLoadingReducer from './full-screen-loading/fullscreenloading.slice';
 import onboardingReducer from './onboarding/onboarding.slice';
 import themeReducer from './theme/theme.slice';
+import authUserReducer from './user/user.slice';
 
 const rootReducer = combineReducers({
   onboarding: onboardingReducer,
   theme: themeReducer,
   loading: fullScreenLoadingReducer,
+  user: authUserReducer,
   // Add other slice reducers here
 });
 
@@ -35,7 +37,7 @@ const persistConfig = {
   key: 'root', // Unique key for the persisted state
   storage: AsyncStorage, // Storage mechanism (AsyncStorage)
   // Whitelist which reducers to persist
-  whitelist: ['onboarding', 'theme'],
+  whitelist: ['onboarding', 'theme', 'user'],
   // Blacklist which reducers not to persist
   blacklist: ['loading'],
 };
@@ -49,6 +51,7 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false, // required for redux-persist
     }),
+  devTools: __DEV__,
 });
 
 export const persistor = persistStore(store);

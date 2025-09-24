@@ -2,7 +2,7 @@ import Constants from 'expo-constants';
 import * as Updates from 'expo-updates';
 
 const Config = {
-  apiUrl: '',
+  apiUrl: 'https://api3.tryftai.com/api/v1/user',
   enableExperimentalFeatures: true,
   app_channel: 'development',
   app_version: Constants.expoConfig?.version || '1.0.0',
