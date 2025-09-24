@@ -40,7 +40,11 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.tryftai.v1",
       "infoPlist": {
-        "NSCameraUsageDescription": "This app requires access to your camera to scan QR codes."
+        "NSCameraUsageDescription": "This app requires access to your camera to scan QR codes.",
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "config": {
+        "usesNonExemptEncryption": false
       }
     },
     "android": {
