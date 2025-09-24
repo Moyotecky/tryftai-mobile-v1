@@ -24,6 +24,7 @@
 import { Button } from '@tryftai/components/atoms/button';
 import { Text } from '@tryftai/components/atoms/text';
 import { Sheet, useSheetRef } from '@tryftai/components/molecules/bottom-sheet';
+import { useAuthUserStore } from '@tryftai/hooks/store/useAuthUserStore';
 import { useOnboarding } from '@tryftai/hooks/store/useOnboardingStore';
 import Config from '@tryftai/libs/config/env';
 import { Image } from 'expo-image';
@@ -37,11 +38,13 @@ const Screen = () => {
 
   const updateSheetRefHandler = useSheetRef();
 
-  const isLoggedIn = false;
+  const { isLoggedIn } = useAuthUserStore();
 
   const redirectUrl = (
     !viewedOnboarding ? '/onboarding' : isLoggedIn ? '/main' : '/authentication/sign-in.screen'
   ) as Href;
+
+  console.log({ isLoggedIn, redirectUrl });
 
   const onFetchUpdateAsync = useCallback(async () => {
     try {
@@ -102,7 +105,7 @@ const Screen = () => {
   }, [onFetchUpdateAsync]);
 
   return (
-    <View className="bg-primary-500 flex-1">
+    <View className="flex-1 bg-primary-500">
       <ImageBackground
         source={require('@tryftai/assets/images/onboarding/check-update-bg.png')}
         style={{ flex: 1 }}>
@@ -126,11 +129,11 @@ const Screen = () => {
               <View className="rounded-full bg-white/5 px-8 py-4">
                 <Text className="text-center text-sm text-white">
                   version 1.0.0
-                  {/* {Config.app_channel === 'development'
-                      ? ' (DEV)'
-                      : Config.app_channel === 'staging'
-                        ? ' (BETA)'
-                        : null} */}
+                  {Config.app_channel === 'development'
+                    ? ' (DEV)'
+                    : Config.app_channel === 'staging'
+                      ? ' (BETA)'
+                      : null}
                 </Text>
               </View>
             </View>

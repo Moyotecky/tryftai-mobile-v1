@@ -27,7 +27,7 @@ const features = [
 
 const Screen = () => {
   return (
-    <View className="bg-dark_blue-500 flex-1">
+    <View className="flex-1 bg-dark_blue-500">
       <View className="flex-[0.5] items-center justify-center">
         <Image
           source={require('@tryftai/assets/images/auth/get-started/card.png')}
@@ -37,10 +37,10 @@ const Screen = () => {
       <View className="flex-[0.5] rounded-t-3xl bg-white px-6 pt-8">
         <View className="flex-1">
           <View className="gap-2">
-            <Text weight="bold" className="text-dark_blue-500 text-3xl">
+            <Text weight="bold" className="text-3xl text-dark_blue-500">
               Welcome to TryftAI
             </Text>
-            <Text className="text-ink-500 text-lg leading-6" weight="medium">
+            <Text className="text-lg leading-6 text-ink-500" weight="medium">
               Let’s setup your account for you as this is the first step to financial success.
             </Text>
           </View>
@@ -48,7 +48,7 @@ const Screen = () => {
             {features?.map((item) => (
               <View key={item} className="flex-row items-center gap-2 py-2">
                 <Ionicons name="checkmark" size={28} color="#0891b2" />
-                <Text className="text-ink-500 text-lg leading-6" weight="medium">
+                <Text className="text-lg leading-6 text-ink-500" weight="medium">
                   {item}
                 </Text>
               </View>

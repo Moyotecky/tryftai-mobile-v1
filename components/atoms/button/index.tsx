@@ -20,14 +20,21 @@
 
 import { LinearGradient } from 'expo-linear-gradient';
 import { forwardRef } from 'react';
-import { Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Text,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  View,
+} from 'react-native';
 
 type ButtonProps = {
   title: string;
+  isLoading?: boolean;
 } & TouchableOpacityProps;
 
 export const Button = forwardRef<View, ButtonProps>(
-  ({ title, disabled = false, ...touchableProps }, ref) => {
+  ({ title, disabled = false, isLoading = false, ...touchableProps }, ref) => {
     return (
       <TouchableOpacity
         ref={ref}
@@ -44,7 +51,11 @@ export const Button = forwardRef<View, ButtonProps>(
           }}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}>
-          <Text className={`${styles.buttonText} ${disabled && 'text-ink-700/50'}`}>{title}</Text>
+          {isLoading ? (
+            <ActivityIndicator />
+          ) : (
+            <Text className={`${styles.buttonText} ${disabled && 'text-ink-700/50'}`}>{title}</Text>
+          )}
         </LinearGradient>
       </TouchableOpacity>
     );

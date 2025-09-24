@@ -12,7 +12,15 @@
     "plugins": [
       "expo-router",
       "expo-web-browser",
-      "expo-font"
+      "expo-font",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Tryft AI to access your camera",
+          "microphonePermission": "Allow Tryft AI to access your microphone",
+          "recordAudioAndroid": true
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
@@ -26,25 +34,42 @@
       "resizeMode": "cover",
       "backgroundColor": "#0F766E"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.tryftai.v1"
+      "bundleIdentifier": "com.tryftai.v1",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app requires access to your camera to scan QR codes.",
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.tryftai.v1"
+      "package": "com.tryftai.v1",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "extra": {
       "router": {},
       "eas": {
         "projectId": "9be87427-74cb-4ed0-9b3b-bb592455a65d"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/9be87427-74cb-4ed0-9b3b-bb592455a65d"
     }
   }
 }

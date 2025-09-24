@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Text } from '@tryftai/components/atoms/text';
+import { useOnboarding } from '@tryftai/hooks/store/useOnboardingStore';
 import { Image } from 'expo-image';
 import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
 import { router } from 'expo-router';
@@ -59,6 +60,7 @@ const Screen = () => {
   const scrollX = useSharedValue(0);
   const flatListRef = useRef<FlatList>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { completeOnboarding } = useOnboarding();
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -90,6 +92,7 @@ const Screen = () => {
     if (currentIndex < PAGES.length - 1) {
       flatListRef.current?.scrollToIndex({ index: currentIndex + 1 });
     } else {
+      completeOnboarding();
       router.navigate('/authentication/get-started.screen');
     }
   };

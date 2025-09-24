@@ -1,9 +1,10 @@
 import '../global.css';
 
 import { Providers } from '@tryftai/components/providers';
+import { getStorageAccessToken } from '@tryftai/libs/utils/token';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -12,8 +13,9 @@ export const unstable_settings = {
   initialRouteName: '(check-update)/index',
 };
 
-export default function RootLayout() {
-  const isLoggedIn = false;
+const RootLayout = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [loaded] = useFonts({
     Gilroy_Black: require('../assets/fonts/Gilroy-Black.ttf'),
     Gilroy_BlackItalic: require('../assets/fonts/Gilroy-BlackItalic.ttf'),
@@ -32,9 +34,29 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
+  useEffect(() => {
+    const checkUser = async () => {
+      try {
+        const token = await getStorageAccessToken();
+        if (token) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (err) {
+        console.error('Error reading token:', err);
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkUser();
+  }, []);
+
   if (!loaded) {
     return null;
   }
+
+  console.log({ isLoggedIn });
 
   return (
     <Providers>
@@ -51,4 +73,6 @@ export default function RootLayout() {
       </Stack>
     </Providers>
   );
-}
+};
+
+export default RootLayout;

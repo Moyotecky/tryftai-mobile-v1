@@ -18,42 +18,109 @@
  */
 
 import { Ionicons } from '@expo/vector-icons';
-import { Input } from '@tryftai/components/atoms/input';
+import { useResendOtp } from '@tryftai/api/hooks/auth/useResendOtp.hook';
+import { useVerifyOtp } from '@tryftai/api/hooks/auth/useVerifyOtp.hook';
+import { PinInput } from '@tryftai/components/atoms/pin-input';
 import { Text } from '@tryftai/components/atoms/text';
+import { useAuthUserStore } from '@tryftai/hooks/store/useAuthUserStore';
 import { useFullScreenLoadingStore } from '@tryftai/hooks/store/useFullScreenLoadingStore';
+import { formatApiError } from '@tryftai/libs/utils/error-handler';
+import { Notify } from '@tryftai/libs/utils/toast.config';
+import { updateStorageAccessToken } from '@tryftai/libs/utils/token';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect } from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Image, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Screen = () => {
+  const { email, type } = useLocalSearchParams();
+  const { updateAccessToken } = useAuthUserStore();
+
   const { isLoading, startLoading, stopLoading } = useFullScreenLoadingStore();
 
-  const { email, type } = useLocalSearchParams();
+  const [code, setCode] = useState<string>('');
+  const [pinReady, setPinReady] = useState(false);
+  const [resendTimer, setResendTimer] = useState(60);
+
+  const verifyOtpMutation = useVerifyOtp();
+  const resendOtpMutation = useResendOtp();
 
   useEffect(() => {
-    const delayTimer = setTimeout(() => {
+    if (pinReady && code.length === 6) {
       startLoading();
-
-      // Simulate API call duration (e.g., 3 seconds)
-      const apiTimer = setTimeout(() => {
-        stopLoading();
-        router.push(
-          type === 'create-account'
-            ? '/authentication/choose-plan.screen'
-            : '/authentication/reset-password.screen'
-        );
-      }, 3000);
-
-      // Cleanup API timer if unmounted
-      return () => clearTimeout(apiTimer);
-    }, 2000);
-
-    // Cleanup delay timer if unmounted
-    return () => clearTimeout(delayTimer);
+      verifyOtpMutation.mutate(
+        { email: email as string, otp: code },
+        {
+          onSettled: () => {
+            stopLoading();
+          },
+          onError: (err) => {
+            Notify('error', {
+              message: 'Error',
+              description: formatApiError(err),
+            });
+          },
+          onSuccess: async (data) => {
+            console.log('Verify Email Data', data);
+            Notify('success', {
+              message: 'Success',
+              description: data?.message,
+            });
+            if (type === 'create-account') {
+              updateAccessToken(data?.accessToken?.accessToken);
+              await updateStorageAccessToken(data?.accessToken?.accessToken);
+            }
+            router.push(
+              type === 'create-account'
+                ? '/authentication/choose-plan.screen'
+                : '/authentication/reset-password.screen'
+            );
+          },
+        }
+      );
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [code, pinReady]);
+
+  // Resend countdown logic
+  useEffect(() => {
+    if (resendTimer === 0) return; // stop if reached zero
+
+    const interval = setInterval(() => {
+      setResendTimer((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [resendTimer]);
+
+  const formatTime = (seconds: number) => {
+    const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+    const s = String(seconds % 60).padStart(2, '0');
+    return `${m}:${s}`;
+  };
+
+  const handleResend = () => {
+    if (resendTimer === 0) {
+      resendOtpMutation.mutate(
+        { email: email as string },
+        {
+          onSuccess: () => {
+            Notify('success', { message: 'OTP resent', description: `Code sent to ${email}` });
+          },
+          onSettled: () => {
+            setResendTimer(60);
+          },
+          onError: (err) => {
+            Notify('error', {
+              message: 'Error',
+              description: formatApiError(err),
+            });
+          },
+        }
+      );
+    }
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-background_light-500">
@@ -83,12 +150,13 @@ const Screen = () => {
             <Text className="text-lg leading-6 text-ink-500" weight="medium">
               Please enter the 6-digit code just sent to
               <Text className="text-lg leading-6 text-ink-500" weight="bold">
+                {' '}
                 {email}
               </Text>
             </Text>
           </View>
           <View className="mt-5 flex-1 gap-3">
-            <Input label="Email Address" />
+            <PinInput code={code} maxLength={6} setCode={setCode} setPinReady={setPinReady} />
           </View>
 
           <View className="mb-10 gap-3">
@@ -100,12 +168,18 @@ const Screen = () => {
               ) : (
                 <TouchableOpacity
                   activeOpacity={0.9}
-                  onPress={() => {
-                    router.navigate('/authentication/sign-in.screen');
-                  }}>
-                  <Text weight="bold" className="text-primary-500">
-                    Resend code in 00:56
-                  </Text>
+                  onPress={handleResend}
+                  disabled={resendTimer > 0} // disable until countdown ends
+                >
+                  {resendOtpMutation?.isPending ? (
+                    <ActivityIndicator color="#000" />
+                  ) : (
+                    <Text
+                      weight="bold"
+                      className={resendTimer > 0 ? 'text-ink-500' : 'text-primary-500'}>
+                      {resendTimer > 0 ? `Resend code in ${formatTime(resendTimer)}` : 'Resend'}
+                    </Text>
+                  )}
                 </TouchableOpacity>
               )}
             </View>

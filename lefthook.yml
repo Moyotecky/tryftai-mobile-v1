@@ -1,0 +1,22 @@
+assert_lefthook_installed: true
+pre-commit:
+  parallel: true
+  scripts:
+    'branch_checker.sh':
+      runner: bash
+      priority: 1
+  commands:
+    lint:
+      glob: '*.{js,ts,jsx,tsx}'
+      run: npx eslint {staged_files}
+    types:
+      glob: '*.{js,ts, jsx, tsx}'
+      run: npx tsc --noEmit
+    format:
+      glob: '*.{js,jsx,ts,tsx,json,md}'
+      run: npx prettier --write {staged_files}
+commit-msg:
+  parallel: true
+  commands:
+    commitlint:
+      run: npx commitlint --edit

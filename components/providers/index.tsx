@@ -26,28 +26,44 @@
  * Created: Sept 2025
  */
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { toastConfig } from '@tryftai/libs/utils/toast.config';
 import { persistor, store } from '@tryftai/store/store';
 import { ActivityIndicator } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { FullScreenLoader } from '../molecules/full-screen-loader';
 import { type IProviderProps } from './provider.types';
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
+
 export const Providers: React.FC<IProviderProps> = ({ children }) => {
   return (
-    <SafeAreaProvider>
-      <GestureHandlerRootView className="flex-1">
-        <BottomSheetModalProvider>
-          <Provider store={store}>
-            <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
-              <FullScreenLoader />
-              {children}
-            </PersistGate>
-          </Provider>
-        </BottomSheetModalProvider>
-      </GestureHandlerRootView>
-    </SafeAreaProvider>
+    <>
+      <SafeAreaProvider>
+        <GestureHandlerRootView className="flex-1">
+          <QueryClientProvider client={queryClient}>
+            <BottomSheetModalProvider>
+              <Provider store={store}>
+                <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
+                  <FullScreenLoader />
+                  {children}
+                </PersistGate>
+              </Provider>
+            </BottomSheetModalProvider>
+          </QueryClientProvider>
+        </GestureHandlerRootView>
+      </SafeAreaProvider>
+      <Toast config={toastConfig(false)} visibilityTime={2000} position="top" />
+    </>
   );
 };

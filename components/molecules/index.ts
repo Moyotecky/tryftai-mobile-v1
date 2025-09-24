@@ -13,10 +13,10 @@
  * - Keeps exports organized by feature/domain
  * - Makes it easier to scale and maintain shared components
  */
+export * from './back-header';
 export * from './bottom-sheet';
 export * from './card';
 export * from './container';
 export * from './full-screen-loader';
 export * from './progress-bar';
 export * from './tabbar-icon';
-

@@ -22,15 +22,11 @@
  * Created: Sept 2025
  */
 
-
-export function formatPrice(
-    amount: number,
-    locale: string = 'en-NG'
-): string {
-    return new Intl.NumberFormat(locale, {
-        style: 'currency',
-        currency: 'NGN',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    }).format(amount);
-}
+export const formatPrice = (amount: number, locale: string = 'en-NG'): string => {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: 'NGN',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount);
+};
