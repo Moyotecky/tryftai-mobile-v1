@@ -41,7 +41,7 @@ const Screen = () => {
   const { isLoggedIn } = useAuthUserStore();
 
   const redirectUrl = (
-    !viewedOnboarding ? '/onboarding' : isLoggedIn ? '/main' : '/authentication/sign-in.screen'
+    !viewedOnboarding ? '/onboarding' : isLoggedIn ? '/main' : '/authentication/get-started.screen'
   ) as Href;
 
   console.log({ isLoggedIn, redirectUrl });

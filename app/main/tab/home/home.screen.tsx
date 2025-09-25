@@ -29,7 +29,7 @@ const Screen = () => {
         <View className="flex flex-row gap-4">
           <TouchableOpacity
             activeOpacity={0.9}
-            onPress={() => router.push('/main/private/home/scan-qr', { withAnchor: true })}>
+            onPress={() => router.push('/main/private/home/scan-qr.screen', { withAnchor: true })}>
             <Image
               source={require('@tryftai/assets/images/home/scan.svg')}
               style={{ width: 25, height: 25 }}

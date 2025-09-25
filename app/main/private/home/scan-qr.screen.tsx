@@ -69,7 +69,7 @@ const Screen = () => {
         </View>
         <TouchableOpacity
           className="absolute bottom-0 w-8/12 flex-row justify-center gap-4 text-center"
-          onPress={() => router.replace('/qr-code/your-qr')}>
+          onPress={() => router.replace('/main/private/home/your-qr.screen')}>
           <Image
             source={require('@tryftai/assets/images/home/scan.svg')}
             style={{ width: 25, height: 25 }}
