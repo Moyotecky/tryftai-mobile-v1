@@ -33,7 +33,7 @@ const Screen = () => {
 
         <TouchableOpacity
           className="mt-5 flex-row items-center gap-2"
-          onPress={() => router.push('/qr-code/account-details')}>
+          onPress={() => router.push('/main/private/home/account-details.screen')}>
           <Text className="text-white" weight="bold">
             Account details
           </Text>
@@ -41,7 +41,7 @@ const Screen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           className="absolute bottom-0 w-8/12 flex-row justify-center gap-4 text-center"
-          onPress={() => router.replace('/qr-code/scan-qr')}>
+          onPress={() => router.replace('/main/private/home/scan-qr.screen')}>
           <Image
             source={require('@tryftai/assets/images/qr/camera.svg')}
             style={{ width: 25, height: 25 }}

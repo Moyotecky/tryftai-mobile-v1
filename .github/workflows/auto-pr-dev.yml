@@ -8,6 +8,7 @@ on:
       - bugfix/*
       - hotfix/*
       - fix/*
+      - chore/*
 
 jobs:
   create-pull-request:
